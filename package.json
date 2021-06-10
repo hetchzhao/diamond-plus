@@ -1,0 +1,51 @@
+{
+  "name": "diamond-plus",
+  "version": "0.1.0",
+  "description": "基于Element Plus的低代码前端框架",
+  "main": "build/js/lib.js",
+  "directories": {},
+  "scripts": {
+    "dev": "webpack serve --progress --hot --inline --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.prod.js",
+    "publish": "npm publish --acces=public"
+  },
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "vue": "^3.0.11",
+    "element-plus": "^1.0.2-beta.44"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@vue/babel-plugin-jsx": "^1.0.6",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/compiler-sfc": "^3.0.11",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-component": "^1.1.1",
+    "css-loader": "^5.2.6",
+    "element-plus": "^1.0.2-beta.44",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^5.3.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.2.4",
+    "url-loader": "^4.1.1",
+    "vue": "^3.0.11",
+    "vue-loader": "^16.0.0-rc.1",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.0",
+    "@babel/runtime-corejs3": "^7.14.0",
+    "core-js": "^3.13.0",
+    "lodash": "^4.17.21"
+  }
+}
