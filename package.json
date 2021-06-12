@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack serve --progress --hot --inline --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
-    "publish": "npm publish --acces=public"
+    "publish": "npm publish --acces=public",
+    "commit": "cz"
   },
   "author": "",
   "license": "ISC",
@@ -24,12 +25,16 @@
     "@vue/babel-plugin-jsx": "^1.0.6",
     "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/compiler-sfc": "^3.0.11",
+    "@vue/test-utils": "^1.2.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-component": "^1.1.1",
+    "commitizen": "^4.2.4",
     "css-loader": "^5.2.6",
+    "cz-conventional-changelog": "^3.3.0",
     "element-plus": "^1.0.2-beta.44",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "jest": "^27.0.4",
     "mini-css-extract-plugin": "^1.6.0",
     "postcss-loader": "^5.3.0",
     "style-loader": "^2.0.0",
@@ -47,5 +52,10 @@
     "@babel/runtime-corejs3": "^7.14.0",
     "core-js": "^3.13.0",
     "lodash": "^4.17.21"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

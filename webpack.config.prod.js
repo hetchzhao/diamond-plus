@@ -14,7 +14,6 @@ module.exports = {
     libraryExport: 'default',
     globalObject: "typeof self !== 'undefined' ? self : this"
   },
-  // TODO: 了解
   externals: {
     vue: {
       root: 'Vue', // 指向全局变量

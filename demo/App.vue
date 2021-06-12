@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <dia-container>
-      <dia-form
+      <!-- <dia-form
         label-width="80px"
         defaultOperation="submit, reset"
         :criterions="criterions"
@@ -10,38 +10,38 @@
         :operations="formOperations"
         @submit="submit"
         @reset="reset"
-      />
-        <suspense>
-          <dia-table
-            height="500"
-            defaultOperation="add,delete,edit"
-            :data="data"
-            :columns="columns"
-            :operations="tableOperations"
-            :beforeAdd="beforeAdd"
-            :afterAdd="afterAdd"
-            :beforeRemove="beforeRemove"
-            :remove="remove"
-            :afterRemove="afterRemove"
-            :add="add"
-            :edit="edit"
-          >
-            <template v-slot:roleList="slotProps">
-              <el-tag
-                v-for="(role, index) in slotProps.row.roleList"
-                :key="`ROLE_${index}`"
-              >{{role.roleName}}</el-tag>
-            </template>
-            <!-- <template v-slot:status="slotProps">
-              <el-tag v-if="slotProps.row.status === 1">启用</el-tag>
-              <el-tag v-else>临时启用</el-tag>
-            </template> -->
-            <template v-slot:operation>
-              <el-button type="text">重置密码</el-button>
-              <el-button type="text">配置权范围</el-button>
-            </template>
-          </dia-table>
-        </suspense>
+      /> -->
+      <!-- <suspense> -->
+      <dia-table
+        height="500"
+        defaultOperation="add,delete,edit"
+        :defaultTools="defaultTools"
+        :data="data"
+        :columns="columns"
+        :operations="tableOperations"
+        :beforeAdd="beforeAdd"
+        :afterAdd="afterAdd"
+        :beforeRemove="beforeRemove"
+        :remove="remove"
+        :afterRemove="afterRemove"
+        :add="add"
+        :edit="edit"
+      >
+        <!-- <template v-slot:roleList="slotProps">
+          <el-tag
+            v-for="(role, index) in slotProps.row.roleList"
+            :key="`ROLE_${index}`"
+          >{{role.roleName}}</el-tag>
+        </template> -->
+        <template v-slot:status>
+          <el-tag>临时启用</el-tag>
+        </template>
+        <!-- <template v-slot:operation>
+          <el-button type="text">重置密码</el-button>
+          <el-button type="text">配置权范围</el-button>
+        </template> -->
+      </dia-table>
+      <!-- </suspense> -->
       <!-- <dia-pagination
         :total="1000"
         :page-sizes="[100, 200, 300, 400]"
@@ -673,22 +673,24 @@ export default defineComponent({
       //   key: 'key',
       //   value: 'val'
       // }
-    },{
+    },
+    {
       label: '操作',
       prop: 'operation',
-      width: 160
-    }]);
+      width: 300
+    }
+    ]);
     const data = ref(TEST_DATA);
     const tableOperations = [{
       label: '批量导入用户',
       attrs: { type: 'info' },
-      emit: (context: any) => {
-        console.log('批量导入用户', context);
-        console.log('ElButton', ElButton);
-        context.openDialog({
-          title: '自定义'
-        }, HelloWorld, {})
-      }
+      // emit: (context: any) => {
+      //   console.log('批量导入用户', context);
+      //   console.log('ElButton', ElButton);
+      //   context.openDialog({
+      //     title: '自定义'
+      //   }, HelloWorld, {})
+      // }
     }];
     const beforeAdd = (props: any) => {
       console.log('beforeAdd', props)
@@ -724,7 +726,14 @@ export default defineComponent({
       // ....
     }
 
+    const defaultTools = ref("add, delete");
+    // onMounted(() => {
+    //   defaultTools.value = "add";
+    //   console.log('defaultTools', defaultTools);
+    // });
+
     return {
+      defaultTools,
       criterions,
       submit,
       reset,
