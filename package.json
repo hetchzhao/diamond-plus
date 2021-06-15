@@ -4,6 +4,11 @@
   "description": "基于Element Plus的低代码前端框架",
   "main": "build/js/lib.js",
   "directories": {},
+  "keywords": [
+    "low code",
+    "vue3.0",
+    "element plus"
+  ],
   "scripts": {
     "dev": "webpack serve --progress --hot --inline --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
