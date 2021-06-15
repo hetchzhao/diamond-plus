@@ -39,10 +39,14 @@
           <el-button type="text">配置权范围</el-button>
         </template> -->
       </dia-table>
-      <!-- <dia-pagination
+      <dia-pagination
         :total="1000"
         :page-sizes="[100, 200, 300, 400]"
-      /> -->
+        @size-change="({current, size}) => {}"
+        @current-change="({current, size}) => {}"
+        @prev-click="({current, size}) => {}"
+        @next-click="({current, size}) => {}"
+      />
     </dia-container>
   </div>
 </template>

@@ -1,8 +1,4 @@
-import {
-  defineComponent,
-  inject,
-  ref
-} from 'vue'
+import { defineComponent } from 'vue'
 import { ElPagination } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-pagination.css';
 
@@ -44,57 +40,64 @@ export default defineComponent({
     background: Boolean,
     disabled: Boolean,
     hideOnSinglePage: Boolean,
-    currentPage: Number,
-    pageSize: Number,
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    pageSize: {
+      type: Number,
+      default: 10
+    },
   },
   emits: [
     'size-change',
     'current-change',
     'prev-click',
     'next-click',
-    'update:currentPage',
-    'update:pageSize',
   ],
   setup(props, { slots, emit }) {
-    
-    let currentPage = null; 
-    let currentChange = (val: number):void => {};
-    if(props.currentPage) {
-      currentPage = ref(props.currentPage);
-      currentChange = (val) => {
-        emit('update:currentPage', val);
-      }
-    }else {
-      currentPage = inject('currentPage');
-      // TODO: 类型修复
-      currentChange = inject('updateCurrentPage');
+    let currentPage = props.currentPage;
+    let pageSize = props.pageSize;
+
+    const handleCurrentChange = (page: number) => {
+      currentPage = page;
+
+      emit('current-change', {
+        current: currentPage,
+        size: pageSize
+      });
+    }
+    const handlePrevClick = (page: number) => {
+      currentPage = page;
+
+      emit('prev-click', {
+        current: currentPage,
+        size: pageSize
+      });
+    };
+    const handleNextClick = (page: number) => {
+      currentPage = page;
+
+      emit('next-click', {
+        current: currentPage,
+        size: pageSize
+      });
     }
 
-    let pageSize = null;
-    let sizeChange = (val: number):void => {};
-    if(props.pageSize) {
-      pageSize = ref(props.pageSize);
-      sizeChange = (val) => {
-        emit('update:pageSize', val);
-      }
-    } else {
-      pageSize = inject('pageSize');
-      // TODO: 类型修复
-      sizeChange = inject('updatePageSize');
-    }
+    const handleSizeChange = (size: number) => {
+      pageSize = size;
 
-    const eventHandler = (event: any) => {
-      return function() {
-        emit(event, ...arguments)
-      }
-    }
+      emit('size-change', {
+        current: currentPage,
+        size: pageSize
+      });
+    };
 
     return {
-      eventHandler,
-      currentPage,
-      pageSize,
-      currentChange,
-      sizeChange
+      handleCurrentChange,
+      handleSizeChange,
+      handlePrevClick,
+      handleNextClick,
     }
   },
   render() {
@@ -102,24 +105,24 @@ export default defineComponent({
     return (
       <ElPagination
         currentPage={this.currentPage}
-        pageSize={this.pageSize}
-        pageSizes={this.pageSizes}
-        layout={this.layout}
-        total={this.total}
-        small={this.small}
-        pageCount={this.pageCount}
-        pagerCount={this.pagerCount}
-        popperClass={this.popperClass}
-        prevText={this.prevText}
-        nextText={this.nextText}
-        background={this.background}
-        disabled={this.disabled}
-        hideOnSinglePage={this.hideOnSinglePage}
+        small={ this.small }
+        total={ this.total }
+        pageCount={ this.pageCount }
+        pagerCount={ this.pagerCount }
+        layout={ this.layout }
+        pageSizes={ this.pageSizes }
+        popperClass={ this.popperClass }
+        prevText={ this.prevText }
+        nextText={ this.nextText }
+        background={ this.background }
+        disabled={ this.disabled }
+        hideOnSinglePage={ this.hideOnSinglePage }
+        pageSize={ this.pageSize }
         // @ts-ignore
-        onSizeChange={this.sizeChange}
-        onCurrentChange={this.currentChange}
-        onPrevClick={this.eventHandler('prev-click')}
-        onNextClick={this.eventHandler('next-click')}
+        onSizeChange={this.handleSizeChange}
+        onCurrentChange={this.handleCurrentChange}
+        onPrevClick={this.handlePrevClick}
+        onNextClick={this.handleNextClick}
       />
     )
   }
