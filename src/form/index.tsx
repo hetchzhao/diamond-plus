@@ -3,12 +3,11 @@ import {
   defineComponent,
   ref,
   onMounted,
-  inject,
-  // TODO: 监听criterions变化
   watch,
-  toRefs,
   reactive,
-  toRaw
+  toRaw,
+  VNode,
+  Suspense
 } from 'vue'
 import {
   ElForm,
@@ -34,8 +33,16 @@ import Radio from './radio'
 import Select from './select'
 
 import { camelize } from '../utils'
+import {
+  ComponentSize,
+  Criterions,
+  Rules,
+  Attrs,
+  Events
+} from './token'
+import { IObjectKeys } from '../utils'
 
-const ElementMap = {
+const ElementMap: IObjectKeys = {
   input: {
     component: ElInput,
     defaultModeValue: '',
@@ -57,7 +64,13 @@ const ElementMap = {
     defaultModeValue: [],
   },
   select: {
-    component: Select,
+    component: (props: any) => (
+      <Suspense>
+        {{
+          default: () => <Select {...props}/>,
+          fallback: () => "加载中"
+        }}
+      </Suspense>),
     defaultModeValue: '',
   },
   custom: {
@@ -66,19 +79,11 @@ const ElementMap = {
   }, 
 };
 
-type criterion = {
-  type: string,
-  prop: string,
+interface Operation extends IObjectKeys {
   label?: string,
-  defaultModeValue?: any,
-  size?: string,
-  disabled?: boolean,
-  showMessage?: boolean,
-  inlineMessage?: boolean,
-  isShow?: boolean,
-  rules?: Array<any>,
-  events?: Object,
-  attrs?: Object
+  attrs?: Attrs,
+  emit?: () => {},
+  sort?: number
 }
 
 export default defineComponent({
@@ -95,14 +100,14 @@ export default defineComponent({
   },
   props: {
     criterions: {
-      type: Array as PropType<Array<criterion>>,
+      type: Array as PropType<Criterions>,
       default: []
     },
     inline: Boolean,
     disabled: Boolean,
     labelWidth: String,
     labelPosition: String,
-    size: String,
+    size: String as PropType<ComponentSize>,
     hideRequiredAsterisk: Boolean,
     showMessage: {
       type: Boolean,
@@ -123,20 +128,13 @@ export default defineComponent({
       default: 'submit,reset'
     },
     operations: {
-      type: Array,
+      type: Array as PropType<Array<Operation>>,
       default:[]
     }
   },
-  emits: ['submit','reset'],
+  emits: ['submit'],
   setup(props, { slots, emit }) {
-    const {
-      criterions,
-      column,
-      defaultOperation,
-      operations
-    } = toRefs(props);
-    const root: any = ref(null);
-    const context = {
+    const context:IObjectKeys = {
       setField: (name:string, value: any) => {},
       getField: (name: string):any => {},
       getFields: ():any => {},
@@ -148,77 +146,58 @@ export default defineComponent({
     const packageContext = (fn: any) => function() {
       fn(context, ...arguments);
     };
-    
-    let dynamicValidateForm = reactive({});
-    const bindDynamicValidateForm = () => {
-      const form = {};
-      const criterionsVal = criterions.value;
-      for(let criterion of criterionsVal) {
+
+    let dynamicValidateForm: IObjectKeys = reactive({});
+    const bindDynamicValidateForm = (criterions: Criterions) => {
+      const form: IObjectKeys = {};
+      for(let criterion of criterions) {
         if(!criterion.prop || !ElementMap[criterion.type] || criterion.type === 'custom') continue;
+        
         const element = ElementMap[criterion.type];
         form[criterion.prop] = criterion.defaultModeValue ? criterion.defaultModeValue : element.defaultModeValue;
       }
+
       dynamicValidateForm = reactive(form);
-    };
-    context.setField = (name: string, value: any) => {
-      if(dynamicValidateForm[name]) {
-        dynamicValidateForm[name] = value;
-      }
     }
-    context.getField = (name: string) => {
-      const raw = toRaw(dynamicValidateForm);
-      return raw[name];
-    }
+    context.setField = (name: string, value: any) => {};
+    context.getField = (name: string) => {};
     context.getFields = () => toRaw(dynamicValidateForm);
-    bindDynamicValidateForm();
 
-    onMounted(() => {
-      if(!root || !root.value) return;
-      context.clearValidate = root.value.clearValidate;
-      context.validate = root.value.validate;
-      context.validateField = root.value.validateField;
-      context.resetFields = root.value.resetFields;
-    }); 
-
-    const renderFormItem = () => {
-      const col = column.value;
-      const criterionsVal = criterions.value;
-      const count = col > 1 ? col : 1;
-      const formItems = [] as any;
-      let index = 0;
-
-      const packageRules = (rules: any) => {
+    const renderFormItem = (criterions: Criterions, columns: number) => {
+      const count = columns > 1 ? columns : 1;
+      const formItems: Array<VNode> = [];
+      const packageRules = (rules: Rules) => {
         if(!Array.isArray(rules)) return undefined;
+
         return rules.map(rule => {
           const { validator, ...rest } = rule;
 
-          if(validator) {
-            return {
-              validator: packageContext(validator),
-              ...rest
-            };
-          } else {
-            return { ...rest };
-          }
-        }); 
-      };
-      const packageEvents = (events: any) => {
+          return validator ? 
+            { validator: packageContext(validator), ...rest } : 
+            { ...rest }
+        })
+      }
+      const packageEvents = (events: Events) => {
         if(!events) events = {};
-        const map = {};
-        
+
+        const map: IObjectKeys = {};
+
         Object.keys(events).forEach(key => {
           const eventName = 'on' + camelize(key);
           map[eventName] = packageContext(events[key]);
         });
 
         return map;
-      };
+      }
 
-      while(index < criterionsVal.length) {
-        const partCriterions = criterionsVal.slice(index, count + index);
-        let components: any = [];
+      let index = 0;
+      while(index < criterions.length) {
+        const someCriterions = criterions.slice(index, count + index);
+        let Row: VNode | Array<VNode>;
+        let Col: VNode;
+        let Cols: Array<VNode> = [];
 
-        partCriterions.forEach(criterion => {
+        someCriterions.forEach(criterion => {
           const {
             type,
             prop,
@@ -233,16 +212,16 @@ export default defineComponent({
             isShow = true
           } = criterion;
           const slotFn = slots[prop];
-          const Element = ElementMap[type].component;
+          const Element = ElementMap[type].component
 
-          let component = (
+          Col = (
             <ElFormItem
               v-model={dynamicValidateForm[prop]}
               prop={prop}
               label={label}
               show-message={showMessage}
               inline-message={inlineMessage}
-              rules={packageRules(rules)}
+              rules={packageRules(rules as Rules)}
               v-show={isShow}
             >
               {
@@ -253,51 +232,50 @@ export default defineComponent({
                     size={size}
                     disabled={disabled}
                     {...attrs}
-                    {...packageEvents(events)}
+                    {...packageEvents(events as Events)}
                   />
               }
             </ElFormItem>
           );
 
-          if(count > 1){
+          if (count > 1) {
             const span = Math.floor(24 / count);
-            component = (
+            Col = (
               <ElCol span={span}>
-                { component }
+                { Col }
               </ElCol>
             );
           }
 
-          components.push(component);
+          Cols.push(Col);
 
           index++;
         });
 
-        if(count > 1) {
-          components = (
-            <ElRow>
-              { components }
-            </ElRow>
-          );
-        }
+        Row = count > 1 ? 
+          (<ElRow>{ Cols }</ElRow>) :
+          Cols;
 
-        formItems.push(components)
+        if(Array.isArray(Row)) {
+          formItems.splice(formItems.length-1, 0, ...Row)
+        }else {
+          formItems.push(Row);
+        }
+        
       }
 
-      return formItems;
+      return formItems
     }
 
-    const renderFormOperations = () => {
-      const defaultOperationVal = defaultOperation.value;
-      const operationsVal = operations.value;
-
-      const submit = (context: any) => {
+    const renderFormOperations = (defaultOperation: string, operations: Array<Operation>) => {
+      const submit = (context: IObjectKeys) => {
         emit('submit', context);
       };
-      const reset = (context: any) => {
-        emit('reset', context);
+      const reset = (context: IObjectKeys) => {
+        context.resetFields();
       };
-      const defaultOperationMap: any = {
+      
+      const defaultOperationMap:IObjectKeys = {
         submit: {
           label: '提交',
           attrs: {
@@ -310,28 +288,31 @@ export default defineComponent({
           emit: packageContext(reset),
         }
       };
-
+      let mergedOperations: Array<any> = [];
+      
       let index = 1;
-      let mergedOperations: any = [];
-      defaultOperationVal.split(',').forEach(key => {
+      defaultOperation.split(',').forEach(key => {
         key = key.trim();
+
         if(!defaultOperationMap[key]) return;
 
         mergedOperations.push({
-          ...defaultOperationMap[key],
+          label: defaultOperationMap[key].label,
+          attrs: defaultOperationMap[key].attrs,
+          emit: defaultOperationMap[key].emit,
           sort: index
         });
         index++;
       });
 
-      if(Array.isArray(operationsVal)) {
-        operationsVal.forEach(({ label, attrs, emit, sort }) => {
+      if(Array.isArray(operations)) {
+        operations.forEach(({ label, attrs, emit, sort }) => {
           if(!label) return;
           if(typeof emit !== 'function') emit = () => {};
 
           mergedOperations.push({
-            label,
-            attrs,
+            label: label,
+            attrs: attrs ? attrs : {},
             emit: packageContext(emit),
             sort
           })
@@ -345,15 +326,35 @@ export default defineComponent({
       return (
         <ElFormItem>
           {
-            mergedOperations.map((operation: any) => { 
+            mergedOperations.map((operation: Operation) => { 
               const { label, attrs = {}, emit } = operation;
               const type = attrs.type || 'default';
-              return (<ElButton type={type} onClick={emit}>{label}</ElButton>);
+              return (
+                // @ts-ignore
+                <ElButton type={type} onClick={emit}>{label}</ElButton>
+              );
             })
           }
         </ElFormItem>
       );
     };
+
+
+    const { criterions } = props
+    bindDynamicValidateForm(criterions);
+
+    const root: any = ref(null);
+    onMounted(() => {
+      if(!root || !root.value) return;
+      context.clearValidate = root.value.clearValidate;
+      context.validate = root.value.validate;
+      context.validateField = root.value.validateField;
+      context.resetFields = root.value.resetFields;
+    });
+
+    watch(() => props.criterions, (newVal) => {
+      bindDynamicValidateForm(newVal);
+    },{ deep: true });
 
     return {
       root,
@@ -378,8 +379,8 @@ export default defineComponent({
         validate-on-rule-change={this.validateOnRuleChange}
         rules={this.rules}
       >
-        { this.renderFormItem() }
-        { this.renderFormOperations() }
+        { this.renderFormItem(this.criterions, this.column) }
+        { this.renderFormOperations(this.defaultOperation, this.operations) }
       </ElForm>
     );
   }

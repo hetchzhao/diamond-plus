@@ -1,7 +1,6 @@
 import {
   PropType,
   defineComponent,
-  defineAsyncComponent,
   inject,
   ref,
   toRefs,

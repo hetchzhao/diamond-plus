@@ -4,3 +4,7 @@ export function camelize(str: string): string {
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
 }
+
+export interface IObjectKeys {
+  [key: string]: any;
+}
