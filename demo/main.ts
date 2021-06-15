@@ -8,9 +8,9 @@ import Dia from '../src/index.ts'
 
 // import Vuf from '../build/js/lib.js'
 
-// import ElementPlus from 'element-plus'
+import ElementPlus from 'element-plus'
 
 createApp(App)
-  // .use(ElementPlus)
+  .use(ElementPlus)
   .use(Dia)
   .mount('#app');

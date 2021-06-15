@@ -1,17 +1,15 @@
 <template>
   <div id="app">
     <dia-container>
-      <!-- <dia-form
+      <dia-form
         label-width="80px"
         defaultOperation="submit, reset"
         :criterions="criterions"
         :inline="true"
-        :column="1"
+        :column="4"
         :operations="formOperations"
         @submit="submit"
-        @reset="reset"
-      /> -->
-      <!-- <suspense> -->
+      />
       <dia-table
         height="500"
         defaultOperation="add,delete,edit"
@@ -41,7 +39,6 @@
           <el-button type="text">配置权范围</el-button>
         </template> -->
       </dia-table>
-      <!-- </suspense> -->
       <!-- <dia-pagination
         :total="1000"
         :page-sizes="[100, 200, 300, 400]"
@@ -432,13 +429,6 @@ export default defineComponent({
         placeholder: '请输入用户名',
         style: 'width:200px',
       },
-      // quanxian:['sys_add','sys_del']
-      // showMessage: '',
-      // inlineMessage: '',
-      // size: '',
-      // disabled: false,
-      // rules: [],
-      // events: []
       evnets: {
         click: (context: any) => {
           console.log('context', context);
@@ -472,7 +462,8 @@ export default defineComponent({
           value: 'linghsiqiyong'
         }]
       },
-    },{
+    },
+    {
       type: 'select',
       label: '租户',
       prop: 'tenement',
@@ -480,9 +471,10 @@ export default defineComponent({
         placeholder: '请选择租户',
         // TODO: 
         style: 'width:200px',
-        remoteOptionFn: getOptionsAPI({ code: 111 })
+        remoteOptionAPI: getOptionsAPI({ code: 111 })
       },
-    },{
+    },
+    {
       type: 'select',
       label: '角色',
       prop: 'role',
@@ -512,7 +504,8 @@ export default defineComponent({
           value: 'linghsiqiyong'
         }],
       },
-    }]);
+    }
+    ]);
     const submit = (context: any) => {
       const fields = context.getFields();
       console.log('context', context);
@@ -728,8 +721,18 @@ export default defineComponent({
 
     const defaultTools = ref("add, delete");
     // onMounted(() => {
-    //   defaultTools.value = "add";
-    //   console.log('defaultTools', defaultTools);
+    //   // defaultTools.value = "add";
+    //   // console.log('defaultTools', defaultTools);
+    //   setTimeout(() => {
+    //     // criterions.pop();
+    //     // criterions.splice(0,3);
+    //       // console.log('haha');
+    //       // criterions.push({
+    //       //   type: 'input',
+    //       //   label: '用户名2',
+    //       //   prop: 'userName2'
+    //       // })
+    //   }, 3000);
     // });
 
     return {
@@ -750,6 +753,11 @@ export default defineComponent({
       edit,
     };
   },
+  data() {
+    return {
+      value: ''
+    }
+  }
 })
 </script>
 
