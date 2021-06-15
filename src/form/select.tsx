@@ -1,12 +1,17 @@
 import {
   defineComponent,
   PropType,
-  ref,
+  reactive,
+  ref
 } from 'vue'
 import { ElSelect, ElOption } from 'element-plus'
-
 import 'element-plus/lib/theme-chalk/el-select.css';
 import 'element-plus/lib/theme-chalk/el-option.css';
+
+import {
+  AttributeOptions,
+  ComponentSize
+} from './token'
 
 export default defineComponent({
   name: 'dia-select',
@@ -16,12 +21,12 @@ export default defineComponent({
   },
   props: {
     options: {
-      type: Array as PropType<ComponentOptions> | undefined,
-      default: undefined
+      type: Array as PropType<AttributeOptions>,
+      default: []
     },
-    remoteOptionFn: {
-      type: Function,
-      default: () => {}
+    remoteOptionAPI: {
+      type: Promise,
+      default: new Promise((resolve) => resolve([]))
     },
     modelValue: [Array, String, Number, Boolean, Object],
     autocomplete: String,
@@ -50,34 +55,34 @@ export default defineComponent({
     clearIcon: String
   },
   emit: ["update:modelValue", "change", "visible-change", "remove-tag", "clear", "blur", "focus"],
-  setup(props, context) {
-    const optionsRef = ref(props.options);
-    const remoteOptionFnRef = ref(props.remoteOptionFn);
-    const renderOptions = () => {
-      let options: Array<any> | undefined = optionsRef.value;
-      const remoteOptionsFn = remoteOptionFnRef.value;
+  async setup(props, context) {
+    const { remoteOptionAPI } = props;
+    let remoteOptions: AttributeOptions = reactive([]);
+    if(Object.prototype.toString.call(remoteOptionAPI) === '[object Promise]') {
+      let res:any = await remoteOptionAPI;
+      if(!Array.isArray(res)) res = [];
 
-      if(!options) {
-        if(Object.prototype.toString.call(remoteOptionsFn) === "[object Promise]") {
-          remoteOptionsFn.then((res: any) => {
-            optionsRef.value = Array.isArray(res) ?  res : [];
-          });
-        }
-
-        options = [];
-      }
-
-      return options.map(({ label, value }) => <ElOption label={label} value={value} />);
+      remoteOptions  = reactive(res);
     }
+    
 
-    /**
-     * bind modelValue
-     */
+    const renderOptions = (options: AttributeOptions, remoteOptions: AttributeOptions) => {
+      const selectedOptions = 
+        Array.isArray(options) && options.length > 0 ?
+        options : remoteOptions;
+
+      return selectedOptions.map(({ label, value }) => {
+        return <ElOption label={label} value={value}/>;
+      })
+    } 
     const handleChange = (newVal: any) => {
       context.emit("update:modelValue", newVal);
     };
 
+    const value = ref('');
     return {
+      value,
+      remoteOptions,
       handleChange,
       renderOptions
     };
@@ -113,7 +118,7 @@ export default defineComponent({
         // @ts-ignore
         onChange={this.handleChange}
       >
-        { this.renderOptions() }
+        { this.renderOptions(this.options, this.remoteOptions) }
       </ElSelect>
     );
   }

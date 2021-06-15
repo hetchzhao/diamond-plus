@@ -6,7 +6,8 @@ import {
   watch,
   reactive,
   toRaw,
-  VNode
+  VNode,
+  Suspense
 } from 'vue'
 import {
   ElForm,
@@ -63,7 +64,13 @@ const ElementMap: IObjectKeys = {
     defaultModeValue: [],
   },
   select: {
-    component: Select,
+    component: (props: any) => (
+      <Suspense>
+        {{
+          default: () => <Select {...props}/>,
+          fallback: () => "加载中"
+        }}
+      </Suspense>),
     defaultModeValue: '',
   },
   custom: {
@@ -125,7 +132,7 @@ export default defineComponent({
       default:[]
     }
   },
-  emits: ['submit','reset'],
+  emits: ['submit'],
   setup(props, { slots, emit }) {
     const context:IObjectKeys = {
       setField: (name:string, value: any) => {},
