@@ -335,6 +335,68 @@ function _defineProperty(obj, key, value) {
 
 /***/ }),
 
+/***/ 4919:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ _toConsumableArray)
+});
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.is-array.js
+var es_array_is_array = __webpack_require__(1301);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+var arrayLikeToArray = __webpack_require__(7087);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return (0,arrayLikeToArray/* default */.Z)(arr);
+}
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__(2004);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
+var es_symbol_description = __webpack_require__(8407);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(6394);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
+var es_symbol_iterator = __webpack_require__(8288);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
+var es_string_iterator = __webpack_require__(2129);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
+var web_dom_collections_iterator = __webpack_require__(4655);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
+var es_array_from = __webpack_require__(3675);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+
+
+
+
+
+
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+var unsupportedIterableToArray = __webpack_require__(299);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+
+
+
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || (0,unsupportedIterableToArray/* default */.Z)(arr) || _nonIterableSpread();
+}
+
+/***/ }),
+
 /***/ 6366:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -2944,7 +3006,7 @@ var popper_lite_createPopper = /*#__PURE__*/popperGenerator({
 
 /***/ }),
 
-/***/ 3586:
+/***/ 9612:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3083,39 +3145,8 @@ function _nonIterableRest() {
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || (0,unsupportedIterableToArray/* default */.Z)(arr, i) || _nonIterableRest();
 }
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
-var arrayLikeToArray = __webpack_require__(7087);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return (0,arrayLikeToArray/* default */.Z)(arr);
-}
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
-var es_array_from = __webpack_require__(3675);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-
-
-
-
-
-
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
-
-
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || (0,unsupportedIterableToArray/* default */.Z)(arr) || _nonIterableSpread();
-}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
+var toConsumableArray = __webpack_require__(4919);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(7692);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.create.js
@@ -3591,7 +3622,7 @@ var toDisplayString = function toDisplayString(val) {
 
 var replacer = function replacer(_key, val) {
   if (isMap(val)) {
-    return (0,defineProperty/* default */.Z)({}, "Map(".concat(val.size, ")"), _toConsumableArray(val.entries()).reduce(function (entries, _ref) {
+    return (0,defineProperty/* default */.Z)({}, "Map(".concat(val.size, ")"), (0,toConsumableArray/* default */.Z)(val.entries()).reduce(function (entries, _ref) {
       var _ref2 = _slicedToArray(_ref, 2),
           key = _ref2[0],
           val = _ref2[1];
@@ -3600,7 +3631,7 @@ var replacer = function replacer(_key, val) {
       return entries;
     }, {}));
   } else if (isSet(val)) {
-    return (0,defineProperty/* default */.Z)({}, "Set(".concat(val.size, ")"), _toConsumableArray(val.values()));
+    return (0,defineProperty/* default */.Z)({}, "Set(".concat(val.size, ")"), (0,toConsumableArray/* default */.Z)(val.values()));
   } else if (isObject(val) && !isArray(val) && !isPlainObject(val)) {
     return String(val);
   }
@@ -14579,165 +14610,6 @@ exports.ClickOutside = ClickOutside;
 exports.Mousewheel = Mousewheel;
 exports.RepeatClick = index;
 exports.TrapFocus = TrapFocus;
-
-/***/ }),
-
-/***/ 456:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-__webpack_require__(4649);
-
-__webpack_require__(7228);
-
-__webpack_require__(2004);
-
-__webpack_require__(8407);
-
-__webpack_require__(4458);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-
-var vue = __webpack_require__(6197);
-
-var TYPE_CLASSES_MAP = {
-  'success': 'el-icon-success',
-  'warning': 'el-icon-warning',
-  'error': 'el-icon-error'
-};
-var script = vue.defineComponent({
-  name: 'ElAlert',
-  props: {
-    title: {
-      type: String,
-      "default": ''
-    },
-    description: {
-      type: String,
-      "default": ''
-    },
-    type: {
-      type: String,
-      "default": 'info'
-    },
-    closable: {
-      type: Boolean,
-      "default": true
-    },
-    closeText: {
-      type: String,
-      "default": ''
-    },
-    showIcon: Boolean,
-    center: Boolean,
-    effect: {
-      type: String,
-      "default": 'light',
-      validator: function validator(value) {
-        return ['light', 'dark'].indexOf(value) > -1;
-      }
-    }
-  },
-  emits: ['close'],
-  setup: function setup(props, ctx) {
-    var visible = vue.ref(true);
-    var typeClass = vue.computed(function () {
-      return "el-alert--".concat(props.type);
-    });
-    var iconClass = vue.computed(function () {
-      return TYPE_CLASSES_MAP[props.type] || 'el-icon-info';
-    });
-    var isBigIcon = vue.computed(function () {
-      return props.description || ctx.slots["default"] ? 'is-big' : '';
-    });
-    var isBoldTitle = vue.computed(function () {
-      return props.description || ctx.slots["default"] ? 'is-bold' : '';
-    });
-
-    var close = function close(evt) {
-      visible.value = false;
-      ctx.emit('close', evt);
-    };
-
-    return {
-      visible: visible,
-      typeClass: typeClass,
-      iconClass: iconClass,
-      isBigIcon: isBigIcon,
-      isBoldTitle: isBoldTitle,
-      close: close
-    };
-  }
-});
-var _hoisted_1 = {
-  "class": "el-alert__content"
-};
-var _hoisted_2 = {
-  key: 1,
-  "class": "el-alert__description"
-};
-
-function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return vue.openBlock(), vue.createBlock(vue.Transition, {
-    name: "el-alert-fade"
-  }, {
-    "default": vue.withCtx(function () {
-      return [vue.withDirectives(vue.createVNode("div", {
-        "class": ["el-alert", [_ctx.typeClass, _ctx.center ? 'is-center' : '', 'is-' + _ctx.effect]],
-        role: "alert"
-      }, [_ctx.showIcon ? (vue.openBlock(), vue.createBlock("i", {
-        key: 0,
-        "class": ["el-alert__icon", [_ctx.iconClass, _ctx.isBigIcon]]
-      }, null, 2
-      /* CLASS */
-      )) : vue.createCommentVNode("v-if", true), vue.createVNode("div", _hoisted_1, [_ctx.title || _ctx.$slots.title ? (vue.openBlock(), vue.createBlock("span", {
-        key: 0,
-        "class": ["el-alert__title", [_ctx.isBoldTitle]]
-      }, [vue.renderSlot(_ctx.$slots, "title", {}, function () {
-        return [vue.createTextVNode(vue.toDisplayString(_ctx.title), 1
-        /* TEXT */
-        )];
-      })], 2
-      /* CLASS */
-      )) : vue.createCommentVNode("v-if", true), _ctx.$slots["default"] || !!_ctx.description ? (vue.openBlock(), vue.createBlock("p", _hoisted_2, [vue.renderSlot(_ctx.$slots, "default", {}, function () {
-        return [vue.createTextVNode(vue.toDisplayString(_ctx.description), 1
-        /* TEXT */
-        )];
-      })])) : vue.createCommentVNode("v-if", true), _ctx.closable ? (vue.openBlock(), vue.createBlock("i", {
-        key: 2,
-        "class": ["el-alert__closebtn", {
-          'is-customed': _ctx.closeText !== '',
-          'el-icon-close': _ctx.closeText === ''
-        }],
-        onClick: _cache[1] || (_cache[1] = function () {
-          return _ctx.close && _ctx.close.apply(_ctx, arguments);
-        })
-      }, vue.toDisplayString(_ctx.closeText), 3
-      /* TEXT, CLASS */
-      )) : vue.createCommentVNode("v-if", true)])], 2
-      /* CLASS */
-      ), [[vue.vShow, _ctx.visible]])];
-    }),
-    _: 3
-    /* FORWARDED */
-
-  });
-}
-
-script.render = render;
-script.__file = "packages/alert/src/index.vue";
-
-script.install = function (app) {
-  app.component(script.name, script);
-};
-
-var _Alert = script;
-exports.Z = _Alert;
 
 /***/ }),
 
@@ -35243,7 +35115,7 @@ Object.defineProperty(exports, "__esModule", ({
 
 var vue = __webpack_require__(6197);
 
-var shared = __webpack_require__(3586);
+var shared = __webpack_require__(9612);
 
 var isServer = __webpack_require__(1828);
 
@@ -52890,6 +52762,8 @@ function _isSlot(s) {
     })]);
   }
 }));
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 3 modules
+var toConsumableArray = __webpack_require__(4919);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__(9751);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
@@ -53225,6 +53099,8 @@ var es_array_concat = __webpack_require__(1646);
 var es_array_slice = __webpack_require__(288);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.map.js
 var es_array_map = __webpack_require__(2070);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__(6429);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.exec.js
 var es_regexp_exec = __webpack_require__(2322);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.split.js
@@ -53405,6 +53281,44 @@ function radio_isSlot(s) {
     });
   }
 }));
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-option.css
 var el_option = __webpack_require__(4197);
 ;// CONCATENATED MODULE: ./node_modules/element-plus/lib/theme-chalk/el-option.css
@@ -53441,7 +53355,11 @@ var el_select_update = injectStylesIntoStyleTag_default()(el_select/* default */
 /* harmony default export */ const theme_chalk_el_select = (el_select/* default.locals */.Z.locals || {});
 // EXTERNAL MODULE: ./node_modules/element-plus/lib/el-select/index.js
 var lib_el_select = __webpack_require__(4285);
+// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
+var runtime = __webpack_require__(7588);
 ;// CONCATENATED MODULE: ./src/form/select.tsx
+
+
 
 
 
@@ -53470,11 +53388,13 @@ function select_isSlot(s) {
   props: {
     options: {
       type: Array,
-      "default": undefined
+      "default": []
     },
-    remoteOptionFn: {
-      type: Function,
-      "default": function _default() {}
+    remoteOptionAPI: {
+      type: Promise,
+      "default": new Promise(function (resolve) {
+        return resolve([]);
+      })
     },
     modelValue: [Array, String, Number, Boolean, Object],
     autocomplete: String,
@@ -53504,45 +53424,60 @@ function select_isSlot(s) {
   },
   emit: ["update:modelValue", "change", "visible-change", "remove-tag", "clear", "blur", "focus"],
   setup: function setup(props, context) {
-    var optionsRef = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(props.options);
-    var remoteOptionFnRef = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(props.remoteOptionFn);
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var remoteOptionAPI, remoteOptions, res, renderOptions, handleChange, value;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              remoteOptionAPI = props.remoteOptionAPI;
+              remoteOptions = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.reactive)([]);
 
-    var renderOptions = function renderOptions() {
-      var options = optionsRef.value;
-      var remoteOptionsFn = remoteOptionFnRef.value;
+              if (!(Object.prototype.toString.call(remoteOptionAPI) === '[object Promise]')) {
+                _context.next = 8;
+                break;
+              }
 
-      if (!options) {
-        if (Object.prototype.toString.call(remoteOptionsFn) === "[object Promise]") {
-          remoteOptionsFn.then(function (res) {
-            optionsRef.value = Array.isArray(res) ? res : [];
-          });
+              _context.next = 5;
+              return remoteOptionAPI;
+
+            case 5:
+              res = _context.sent;
+              if (!Array.isArray(res)) res = [];
+              remoteOptions = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.reactive)(res);
+
+            case 8:
+              renderOptions = function renderOptions(options, remoteOptions) {
+                var selectedOptions = Array.isArray(options) && options.length > 0 ? options : remoteOptions;
+                return selectedOptions.map(function (_ref) {
+                  var label = _ref.label,
+                      value = _ref.value;
+                  return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElOption"), {
+                    "label": label,
+                    "value": value
+                  }, null);
+                });
+              };
+
+              handleChange = function handleChange(newVal) {
+                context.emit("update:modelValue", newVal);
+              };
+
+              value = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)('');
+              return _context.abrupt("return", {
+                value: value,
+                remoteOptions: remoteOptions,
+                handleChange: handleChange,
+                renderOptions: renderOptions
+              });
+
+            case 12:
+            case "end":
+              return _context.stop();
+          }
         }
-
-        options = [];
-      }
-
-      return options.map(function (_ref) {
-        var label = _ref.label,
-            value = _ref.value;
-        return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElOption"), {
-          "label": label,
-          "value": value
-        }, null);
-      });
-    };
-    /**
-     * bind modelValue
-     */
-
-
-    var handleChange = function handleChange(newVal) {
-      context.emit("update:modelValue", newVal);
-    };
-
-    return {
-      handleChange: handleChange,
-      renderOptions: renderOptions
-    };
+      }, _callee);
+    }))();
   },
   render: function render() {
     var _slot;
@@ -53574,7 +53509,7 @@ function select_isSlot(s) {
       "popperAppendToBody": this.popperAppendToBody,
       "clearIcon": this.clearIcon,
       "onChange": this.handleChange
-    }, select_isSlot(_slot = this.renderOptions()) ? _slot : {
+    }, select_isSlot(_slot = this.renderOptions(this.options, this.remoteOptions)) ? _slot : {
       "default": function _default() {
         return [_slot];
       }
@@ -53594,6 +53529,8 @@ function camelize(str) {
   });
 }
 ;// CONCATENATED MODULE: ./src/form/index.tsx
+
+
 
 
 
@@ -53675,7 +53612,16 @@ var ElementMap = {
     defaultModeValue: []
   },
   select: {
-    component: form_select,
+    component: function component(props) {
+      return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.Suspense, null, {
+        "default": function _default() {
+          return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(form_select, props, null);
+        },
+        fallback: function fallback() {
+          return "加载中";
+        }
+      });
+    },
     defaultModeValue: ''
   },
   custom: {
@@ -53729,18 +53675,10 @@ var ElementMap = {
       "default": []
     }
   },
-  emits: ['submit', 'reset'],
+  emits: ['submit'],
   setup: function setup(props, _ref) {
     var slots = _ref.slots,
         emit = _ref.emit;
-
-    var _toRefs = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toRefs)(props),
-        criterions = _toRefs.criterions,
-        column = _toRefs.column,
-        defaultOperation = _toRefs.defaultOperation,
-        operations = _toRefs.operations;
-
-    var root = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(null);
     var context = {
       setField: function setField(name, value) {},
       getField: function getField(name) {},
@@ -53759,11 +53697,10 @@ var ElementMap = {
 
     var dynamicValidateForm = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.reactive)({});
 
-    var bindDynamicValidateForm = function bindDynamicValidateForm() {
+    var bindDynamicValidateForm = function bindDynamicValidateForm(criterions) {
       var form = {};
-      var criterionsVal = criterions.value;
 
-      var _iterator = _createForOfIteratorHelper(criterionsVal),
+      var _iterator = _createForOfIteratorHelper(criterions),
           _step;
 
       try {
@@ -53782,36 +53719,17 @@ var ElementMap = {
       dynamicValidateForm = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.reactive)(form);
     };
 
-    context.setField = function (name, value) {
-      if (dynamicValidateForm[name]) {
-        dynamicValidateForm[name] = value;
-      }
-    };
+    context.setField = function (name, value) {};
 
-    context.getField = function (name) {
-      var raw = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toRaw)(dynamicValidateForm);
-      return raw[name];
-    };
+    context.getField = function (name) {};
 
     context.getFields = function () {
       return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toRaw)(dynamicValidateForm);
     };
 
-    bindDynamicValidateForm();
-    (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.onMounted)(function () {
-      if (!root || !root.value) return;
-      context.clearValidate = root.value.clearValidate;
-      context.validate = root.value.validate;
-      context.validateField = root.value.validateField;
-      context.resetFields = root.value.resetFields;
-    });
-
-    var renderFormItem = function renderFormItem() {
-      var col = column.value;
-      var criterionsVal = criterions.value;
-      var count = col > 1 ? col : 1;
+    var renderFormItem = function renderFormItem(criterions, columns) {
+      var count = columns > 1 ? columns : 1;
       var formItems = [];
-      var index = 0;
 
       var packageRules = function packageRules(rules) {
         if (!Array.isArray(rules)) return undefined;
@@ -53819,13 +53737,9 @@ var ElementMap = {
           var validator = rule.validator,
               rest = _objectWithoutProperties(rule, ["validator"]);
 
-          if (validator) {
-            return _objectSpread2({
-              validator: packageContext(validator)
-            }, rest);
-          } else {
-            return _objectSpread2({}, rest);
-          }
+          return validator ? _objectSpread2({
+            validator: packageContext(validator)
+          }, rest) : _objectSpread2({}, rest);
         });
       };
 
@@ -53839,10 +53753,14 @@ var ElementMap = {
         return map;
       };
 
+      var index = 0;
+
       var _loop = function _loop() {
-        var partCriterions = criterionsVal.slice(index, count + index);
-        var components = [];
-        partCriterions.forEach(function (criterion) {
+        var someCriterions = criterions.slice(index, count + index);
+        var Row = void 0;
+        var Col = void 0;
+        var Cols = [];
+        someCriterions.forEach(function (criterion) {
           var type = criterion.type,
               prop = criterion.prop,
               label = criterion.label,
@@ -53857,8 +53775,7 @@ var ElementMap = {
               isShow = _criterion$isShow === void 0 ? true : _criterion$isShow;
           var slotFn = slots[prop];
           var Element = ElementMap[type].component;
-
-          var component = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.withDirectives)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElFormItem"), {
+          Col = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.withDirectives)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElFormItem"), {
             "modelValue": dynamicValidateForm[prop],
             "onUpdate:modelValue": function onUpdateModelValue($event) {
               return dynamicValidateForm[prop] = $event;
@@ -53884,57 +53801,51 @@ var ElementMap = {
           if (count > 1) {
             var span = Math.floor(24 / count);
 
-            var _component = function () {
-              return component;
+            var _Col = function () {
+              return Col;
             }();
 
-            component = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElCol"), {
+            Col = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElCol"), {
               "span": span
-            }, form_isSlot(component) ? component : {
+            }, form_isSlot(Col) ? Col : {
               "default": function _default() {
-                return [_component];
+                return [_Col];
               }
             });
           }
 
-          components.push(component);
+          Cols.push(Col);
           index++;
         });
+        Row = count > 1 ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElRow"), null, form_isSlot(Cols) ? Cols : {
+          "default": function _default() {
+            return [Cols];
+          }
+        }) : Cols;
 
-        if (count > 1) {
-          var _components = function () {
-            return components;
-          }();
-
-          components = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElRow"), null, form_isSlot(components) ? components : {
-            "default": function _default() {
-              return [_components];
-            }
-          });
+        if (Array.isArray(Row)) {
+          formItems.splice.apply(formItems, [formItems.length - 1, 0].concat((0,toConsumableArray/* default */.Z)(Row)));
+        } else {
+          formItems.push(Row);
         }
-
-        formItems.push(components);
       };
 
-      while (index < criterionsVal.length) {
+      while (index < criterions.length) {
         _loop();
       }
 
       return formItems;
     };
 
-    var renderFormOperations = function renderFormOperations() {
+    var renderFormOperations = function renderFormOperations(defaultOperation, operations) {
       var _slot;
-
-      var defaultOperationVal = defaultOperation.value;
-      var operationsVal = operations.value;
 
       var submit = function submit(context) {
         emit('submit', context);
       };
 
       var reset = function reset(context) {
-        emit('reset', context);
+        context.resetFields();
       };
 
       var defaultOperationMap = {
@@ -53950,19 +53861,22 @@ var ElementMap = {
           emit: packageContext(reset)
         }
       };
-      var index = 1;
       var mergedOperations = [];
-      defaultOperationVal.split(',').forEach(function (key) {
+      var index = 1;
+      defaultOperation.split(',').forEach(function (key) {
         key = key.trim();
         if (!defaultOperationMap[key]) return;
-        mergedOperations.push(_objectSpread2(_objectSpread2({}, defaultOperationMap[key]), {}, {
+        mergedOperations.push({
+          label: defaultOperationMap[key].label,
+          attrs: defaultOperationMap[key].attrs,
+          emit: defaultOperationMap[key].emit,
           sort: index
-        }));
+        });
         index++;
       });
 
-      if (Array.isArray(operationsVal)) {
-        operationsVal.forEach(function (_ref2) {
+      if (Array.isArray(operations)) {
+        operations.forEach(function (_ref2) {
           var label = _ref2.label,
               attrs = _ref2.attrs,
               emit = _ref2.emit,
@@ -53971,7 +53885,7 @@ var ElementMap = {
           if (typeof emit !== 'function') emit = function emit() {};
           mergedOperations.push({
             label: label,
-            attrs: attrs,
+            attrs: attrs ? attrs : {},
             emit: packageContext(emit),
             sort: sort
           });
@@ -53987,14 +53901,16 @@ var ElementMap = {
             attrs = _operation$attrs === void 0 ? {} : _operation$attrs,
             emit = operation.emit;
         var type = attrs.type || 'default';
-        return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElButton"), {
-          "type": type,
-          "onClick": emit
-        }, form_isSlot(label) ? label : {
-          "default": function _default() {
-            return [label];
-          }
-        });
+        return (// @ts-ignore
+          (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElButton"), {
+            "type": type,
+            "onClick": emit
+          }, form_isSlot(label) ? label : {
+            "default": function _default() {
+              return [label];
+            }
+          })
+        );
       })) ? _slot : {
         "default": function _default() {
           return [_slot];
@@ -54002,6 +53918,23 @@ var ElementMap = {
       });
     };
 
+    var criterions = props.criterions;
+    bindDynamicValidateForm(criterions);
+    var root = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(null);
+    (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.onMounted)(function () {
+      if (!root || !root.value) return;
+      context.clearValidate = root.value.clearValidate;
+      context.validate = root.value.validate;
+      context.validateField = root.value.validateField;
+      context.resetFields = root.value.resetFields;
+    });
+    (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.watch)(function () {
+      return props.criterions;
+    }, function (newVal) {
+      bindDynamicValidateForm(newVal);
+    }, {
+      deep: true
+    });
     return {
       root: root,
       dynamicValidateForm: dynamicValidateForm,
@@ -54029,51 +53962,29 @@ var ElementMap = {
       "rules": this.rules
     }, {
       "default": function _default() {
-        return [_this.renderFormItem(), _this.renderFormOperations()];
+        return [_this.renderFormItem(_this.criterions, _this.column), _this.renderFormOperations(_this.defaultOperation, _this.operations)];
       }
     });
   }
 }));
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 var esm_typeof = __webpack_require__(6366);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-table.css
+var el_table = __webpack_require__(2939);
+;// CONCATENATED MODULE: ./node_modules/element-plus/lib/theme-chalk/el-table.css
+
+            
+
+var el_table_options = {};
+
+el_table_options.insert = "head";
+el_table_options.singleton = false;
+
+var el_table_update = injectStylesIntoStyleTag_default()(el_table/* default */.Z, el_table_options);
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
 
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
+/* harmony default export */ const theme_chalk_el_table = (el_table/* default.locals */.Z.locals || {});
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-alert.css
 var el_alert = __webpack_require__(4290);
 ;// CONCATENATED MODULE: ./node_modules/element-plus/lib/theme-chalk/el-alert.css
@@ -54090,8 +54001,52 @@ var el_alert_update = injectStylesIntoStyleTag_default()(el_alert/* default */.Z
 
 
 /* harmony default export */ const theme_chalk_el_alert = (el_alert/* default.locals */.Z.locals || {});
-// EXTERNAL MODULE: ./node_modules/element-plus/lib/el-alert/index.js
-var lib_el_alert = __webpack_require__(456);
+;// CONCATENATED MODULE: ./src/table/toolbar.tsx
+
+
+
+
+
+
+
+
+/* harmony default export */ const toolbar = ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.defineComponent)({
+  name: 'toolbar',
+  props: {
+    tools: {
+      type: Array,
+      "default": []
+    }
+  },
+  components: {
+    ElButton: lib_el_button.default
+  },
+  setup: function setup(props, _ref) {
+    var emit = _ref.emit,
+        slots = _ref.slots;
+
+    var renderTools = function renderTools(tools) {
+      if (!Array.isArray(tools)) return [];
+      return tools.map(function (tool) {
+        return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElButton"), {
+          "type": tool.attrs.type,
+          "onClick": tool.emit
+        }, {
+          "default": function _default() {
+            return [tool.label];
+          }
+        });
+      });
+    };
+
+    return {
+      renderTools: renderTools
+    };
+  },
+  render: function render() {
+    return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.Fragment, null, [this.renderTools(this.tools)]);
+  }
+}));
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-table-column.css
 var el_table_column = __webpack_require__(7497);
 ;// CONCATENATED MODULE: ./node_modules/element-plus/lib/theme-chalk/el-table-column.css
@@ -54110,40 +54065,244 @@ var el_table_column_update = injectStylesIntoStyleTag_default()(el_table_column/
 /* harmony default export */ const theme_chalk_el_table_column = (el_table_column/* default.locals */.Z.locals || {});
 // EXTERNAL MODULE: ./node_modules/element-plus/lib/el-table-column/index.js
 var lib_el_table_column = __webpack_require__(4957);
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-table.css
-var el_table = __webpack_require__(2939);
-;// CONCATENATED MODULE: ./node_modules/element-plus/lib/theme-chalk/el-table.css
-
-            
-
-var el_table_options = {};
-
-el_table_options.insert = "head";
-el_table_options.singleton = false;
-
-var el_table_update = injectStylesIntoStyleTag_default()(el_table/* default */.Z, el_table_options);
-
-
-
-/* harmony default export */ const theme_chalk_el_table = (el_table/* default.locals */.Z.locals || {});
 // EXTERNAL MODULE: ./node_modules/element-plus/lib/el-table/index.js
 var lib_el_table = __webpack_require__(4410);
-// EXTERNAL MODULE: ./node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(7588);
+;// CONCATENATED MODULE: ./src/table/child-table.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function child_table_isSlot(s) {
+  return typeof s === 'function' || Object.prototype.toString.call(s) === '[object Object]' && !(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.isVNode)(s);
+}
+
+var SELECTION = 'selection';
+/* harmony default export */ const child_table = ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.defineComponent)({
+  name: 'dia-child-table',
+  components: {
+    ElTable: lib_el_table/* default */.Z,
+    ElTableColumn: lib_el_table_column/* default */.Z
+  },
+  props: {
+    data: {
+      type: Array,
+      "default": []
+    },
+    columns: {
+      type: Array,
+      "default": []
+    },
+    size: String,
+    width: [String, Number],
+    height: [String, Number],
+    maxHeight: [String, Number],
+    fit: {
+      type: Boolean,
+      "default": true
+    },
+    stripe: Boolean,
+    border: Boolean,
+    rowKey: [String, Function],
+    showHeader: {
+      type: Boolean,
+      "default": true
+    },
+    showSummary: Boolean,
+    sumText: String,
+    summaryMethod: Function,
+    rowClassName: [String, Function],
+    rowStyle: [Object, Function],
+    cellClassName: [String, Function],
+    cellStyle: [Object, Function],
+    headerRowClassName: [String, Function],
+    headerRowStyle: [Object, Function],
+    headerCellClassName: [String, Function],
+    headerCellStyle: [Object, Function],
+    highlightCurrentRow: Boolean,
+    currentRowKey: [String, Number],
+    emptyText: String,
+    expandRowKeys: Array,
+    defaultExpandAll: Boolean,
+    defaultSort: Object,
+    tooltipEffect: String,
+    spanMethod: Function,
+    selectOnIndeterminate: {
+      type: Boolean,
+      "default": true
+    },
+    indent: {
+      type: Number,
+      "default": 16
+    },
+    treeProps: {
+      type: Object,
+      "default": function _default() {
+        return {
+          hasChildren: 'hasChildren',
+          children: 'children'
+        };
+      }
+    },
+    lazy: Boolean,
+    load: Function
+  },
+  emits: ['selection-change'],
+  setup: function setup(props, _ref) {
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var slots, emit, _toRefs, columns, root, renderColumns, handleSelectionChange;
+
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              slots = _ref.slots, emit = _ref.emit;
+              _toRefs = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toRefs)(props), columns = _toRefs.columns;
+              root = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(null);
+              (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.onMounted)(function () {});
+
+              renderColumns = function renderColumns() {
+                var recursion = function recursion(cols) {
+                  if (!Array.isArray(cols)) return;
+                  var colComps = [];
+                  cols.forEach(function (col) {
+                    var hidden = col.hidden,
+                        children = col.children,
+                        translate = col.translate,
+                        props = _objectWithoutProperties(col, ["hidden", "children", "translate"]);
+
+                    if (hidden) return;
+                    var colComp;
+
+                    if (Array.isArray(children) && children.length > 0) {
+                      var label = props.label,
+                          width = props.width;
+                      var childComps = recursion(children);
+                      colComp = childComps ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), {
+                        "label": label,
+                        "width": width
+                      }, child_table_isSlot(childComps) ? childComps : {
+                        "default": function _default() {
+                          return [childComps];
+                        }
+                      }) : (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), {
+                        "label": label,
+                        "width": width
+                      }, null);
+                    } else {
+                      var slotFn = slots[props.prop];
+                      var formatter = props.formatter; // if(!formatter && formatterMap[props.prop]) {
+                      // }
+
+                      colComp = slotFn ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
+                        "formatter": formatter
+                      }, props), {
+                        "default": function _default(scope) {
+                          return slotFn(scope);
+                        }
+                      }) : (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
+                        "formatter": formatter
+                      }, props), null);
+                    }
+
+                    colComps.push(colComp);
+                  });
+                  return colComps;
+                };
+
+                return recursion(columns.value);
+              }; // await new Promise((resolve) =>{
+              //   setTimeout(() =>{
+              //     resolve(0)
+              //   }, 2000)
+              // })
+
+
+              handleSelectionChange = function handleSelectionChange(val) {
+                return emit('selection-change', val);
+              };
+
+              return _context.abrupt("return", {
+                root: root,
+                handleSelectionChange: handleSelectionChange,
+                renderColumns: renderColumns
+              });
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  render: function render() {
+    var _slot;
+
+    var _this = this;
+
+    return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTable"), {
+      "ref": function ref(_ref2) {
+        _this.root = _ref2;
+      },
+      "data": this.data,
+      "size": this.size,
+      "width": this.width,
+      "height": this.height,
+      "maxHeight": this.maxHeight,
+      "fit": this.fit,
+      "stripe": this.stripe,
+      "border": this.border,
+      "rowKey": this.rowKey,
+      "showHeader": this.showHeader,
+      "showSummary": this.showSummary,
+      "sumText": this.sumText,
+      "summaryMethod": this.summaryMethod,
+      "rowClassName": this.rowClassName,
+      "rowStyle": this.rowStyle,
+      "cellClassName": this.cellClassName,
+      "cellStyle": this.cellStyle,
+      "headerRowClassName": this.headerRowClassName,
+      "headerRowStyle": this.headerRowStyle,
+      "headerCellClassName": this.headerCellClassName,
+      "headerCellStyle": this.headerCellStyle,
+      "highlightCurrentRow": this.highlightCurrentRow,
+      "currentRowKey": this.currentRowKey,
+      "emptyText": this.emptyText,
+      "expandRowKeys": this.expandRowKeys,
+      "defaultExpandAll": this.defaultExpandAll,
+      "defaultSort": this.defaultSort,
+      "tooltipEffect": this.tooltipEffect,
+      "spanMethod": this.spanMethod,
+      "selectOnIndeterminate": this.selectOnIndeterminate,
+      "indent": this.indent,
+      "treeProps": this.treeProps,
+      "lazy": this.lazy,
+      "load": this.load,
+      "onSelectionChange": this.handleSelectionChange
+    }, child_table_isSlot(_slot = this.renderColumns()) ? _slot : {
+      "default": function _default() {
+        return [_slot];
+      }
+    });
+  }
+}));
 ;// CONCATENATED MODULE: ./src/table/index.tsx
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54175,17 +54334,22 @@ function table_isSlot(s) {
   return typeof s === 'function' || Object.prototype.toString.call(s) === '[object Object]' && !(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.isVNode)(s);
 }
 
-var SELECTION = 'selection';
+var table_SELECTION = 'selection';
 /* harmony default export */ const table = ((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.defineComponent)({
   name: 'dia-table',
   // TODO: 全量加载时不需要注册组件，查看下原因
   components: {
-    ElTable: lib_el_table/* default */.Z,
-    ElTableColumn: lib_el_table_column/* default */.Z,
-    ElButton: lib_el_button.default,
-    ElAlert: lib_el_alert/* default */.Z
+    ElButton: lib_el_button.default
   },
   props: {
+    data: {
+      type: Array,
+      "default": []
+    },
+    columns: {
+      type: Array,
+      "default": []
+    },
     size: String,
     width: [String, Number],
     height: [String, Number],
@@ -54239,19 +54403,19 @@ var SELECTION = 'selection';
     },
     lazy: Boolean,
     load: Function,
-    defaultOperation: {
+    defaultTools: {
       type: String,
-      "default": 'add, delete, edit'
+      "default": 'add, delete'
+    },
+    tools: {
+      type: Array,
+      "default": []
+    },
+    defaultOperations: {
+      type: String,
+      "default": 'query,edit,'
     },
     operations: {
-      type: Array,
-      "default": []
-    },
-    data: {
-      type: Array,
-      "default": []
-    },
-    columns: {
       type: Array,
       "default": []
     },
@@ -54259,15 +54423,11 @@ var SELECTION = 'selection';
       type: Function,
       "default": function _default() {}
     },
+    add: {
+      type: Function,
+      "default": function _default() {}
+    },
     afterAdd: {
-      type: Function,
-      "default": function _default() {}
-    },
-    beforeEdit: {
-      type: Function,
-      "default": function _default() {}
-    },
-    afterEdit: {
       type: Function,
       "default": function _default() {}
     },
@@ -54275,11 +54435,15 @@ var SELECTION = 'selection';
       type: Function,
       "default": function _default() {}
     },
+    remove: {
+      type: Function,
+      "default": function _default() {}
+    },
     afterRemove: {
       type: Function,
       "default": function _default() {}
     },
-    add: {
+    beforeEdit: {
       type: Function,
       "default": function _default() {}
     },
@@ -54287,509 +54451,781 @@ var SELECTION = 'selection';
       type: Function,
       "default": function _default() {}
     },
-    remove: {
+    afterEdit: {
+      type: Function,
+      "default": function _default() {}
+    },
+    beforeQuery: {
+      type: Function,
+      "default": function _default() {}
+    },
+    query: {
+      type: Function,
+      "default": function _default() {}
+    },
+    afterQuery: {
       type: Function,
       "default": function _default() {}
     }
   },
   emits: [],
+  // async setup(props, { slots, emit }) {
+  //   const { columns, operations, defaultOperation } = toRefs(props);
+  //   const context = {
+  //     clearSelection: () => {},
+  //     toggleRowSelection: () => {},
+  //     toggleAllSelection: () => {},
+  //     toggleRowExpansion: () => {},
+  //     setCurrentRow: () => {},
+  //     clearSort: () => {},
+  //     clearFilter: () => {},
+  //     doLayout: () => {},
+  //     sort: () => {},
+  //     openDialog: () => {},
+  //     closeDialog: () => {},
+  //     createForm: () => Form,
+  //     getSelectedRows: () => {},
+  //     setSelectedRows: () => {}
+  //   };
+  //   const packageContext = (fn: any) => function() {
+  //     fn(context, ...arguments);
+  //   }
+  //   const openDialog = inject('openDialog') || null;
+  //   const closeDialog = inject('closeDialog') || null;
+  //   if(typeof openDialog === 'function') {
+  //     context.openDialog = openDialog;
+  //   }
+  //   if(typeof closeDialog === 'function') {
+  //     context.closeDialog = closeDialog;
+  //   }
+  //   let selectedRows: any = [];
+  //   const handleSelectionChange = (val: any) => {
+  //     selectedRows = val;
+  //   }
+  //   const getSelectedRows = () => selectedRows;
+  //   const setSelectedRows = () => {};
+  //   context.getSelectedRows = getSelectedRows;
+  //   context.setSelectedRows = setSelectedRows;
+  //   /**
+  //    * generate operationButtons
+  //    */
+  //   const {
+  //     beforeAdd,
+  //     add,
+  //     afterAdd,
+  //     beforeEdit,
+  //     edit,
+  //     afterEdit,
+  //     beforeRemove,
+  //     remove,
+  //     afterRemove
+  //   } = props;
+  //   const renderOperationButtons = () => {
+  //     const additionCriterions: any = [];
+  //     const editionCriterions: any = [];
+  //     const columnsVal = columns.value;
+  //     let deletable = false;
+  //     let editable = false;
+  //     /**
+  //      * generate addition criterions and edition Criterions
+  //      */
+  //     const traverse = function(columns: Columns, additionCriterions: Array<any>, editionCriterions: Array<any>) {
+  //       if(!Array.isArray(columns)) return;
+  //       for(let column of columns) {
+  //         const { label, type, prop, addition, edition, children } = column;
+  //         if(Array.isArray(children)) {
+  //           traverse(children, additionCriterions, editionCriterions);
+  //         }
+  //         // verify delete and edit operation
+  //         if(type === SELECTION) {
+  //           deletable = true;
+  //           editable = true;
+  //         }
+  //         // generate criterions
+  //         if(!prop) continue;
+  //         const criterion = {
+  //           prop,
+  //           label,
+  //           type: 'input',
+  //           attrs: {},
+  //           rules: [],
+  //           events: [],
+  //           // TODO: 新增hidden字段
+  //           hidden: false
+  //         };
+  //         if(typeof addition === 'object' && addition !== null) {
+  //           additionCriterions.push(_.merge({}, criterion, {
+  //             type: addition.type,
+  //             prop: addition.prop,
+  //             label: addition.label,
+  //             showMessage: addition.showMessage,
+  //             inlineMessage: addition.inlineMessage,
+  //             size: addition.size,
+  //             disabled: addition.disabled,
+  //             rules: addition.rules,
+  //             attrs: addition.attrs,
+  //             events: addition.events,
+  //             isShow: addition.isShow
+  //           }));
+  //         }
+  //         if(typeof edition === 'object' && edition !== null) {
+  //           editionCriterions.push(_.merge({}, criterion, {
+  //             type: edition.type,
+  //             prop: edition.prop,
+  //             label: edition.label,
+  //             showMessage: edition.showMessage,
+  //             inlineMessage: edition.inlineMessage,
+  //             size: edition.size,
+  //             disabled: edition.disabled,
+  //             rules: edition.rules,
+  //             attrs: edition.attrs,
+  //             events: edition.events,
+  //             isShow: edition.isShow,
+  //           }));
+  //         }
+  //       }
+  //     }
+  //     traverse(columnsVal, additionCriterions, editionCriterions);
+  //     // TODO: 存在多次渲染问题
+  //     const openAdditionDialog = function(context:any) {
+  //       const Form = context.createForm();
+  //       let props = {
+  //         inline: false,
+  //         criterions: additionCriterions,
+  //         labelWidth: "80px",
+  //         onSubmit: add,
+  //         closeOnClickModal: false,
+  //         closeOnPressEscape: false
+  //       };
+  //       props = _.merge({}, props, beforeAdd(_.cloneDeep(props) || {}));
+  //       context.openDialog({ title: '新增' }, Form, props);
+  //       afterAdd();
+  //     };
+  //     const openEditionDialog = function(context:any) {
+  //       const selectedRows = context.getSelectedRows();
+  //       if(selectedRows.length !== 1) return;
+  //       const selectedRow = selectedRows[0];
+  //       for(let i = 0; i < editionCriterions.length; i++) {
+  //         if(editionCriterions[i].prop) {
+  //           editionCriterions[i].defaultModeValue = selectedRow[editionCriterions[i].prop] || "";
+  //         }
+  //       }
+  //       console.log('editionCriterions', editionCriterions);
+  //       let props = {
+  //         inline: false,
+  //         criterions: editionCriterions,
+  //         labelWidth: "80px",
+  //         onSubmit: edit,
+  //         closeOnClickModal: false,
+  //         closeOnPressEscape: false
+  //       };
+  //       props = _.merge({}, props, beforeEdit(_.cloneDeep(props) || {}));
+  //       context.openDialog({ title: '编辑' }, Form, props);
+  //       afterEdit();
+  //     };
+  //     const removeData = function(context:any) {
+  //       const selectedRows = context.getSelectedRows();
+  //       if(selectedRows.length < 1) return;
+  //       beforeRemove(selectedRows);
+  //       remove(selectedRows);
+  //       afterRemove();
+  //     };
+  //     /**
+  //      * generate operations buttons
+  //      */
+  //     const operationsVal = operations.value;
+  //     const defaultOperationMap: any = {
+  //       add: {
+  //         label: '添加',
+  //         attrs: {
+  //           type: 'primary',
+  //         },
+  //         emit: packageContext(openAdditionDialog),
+  //       },
+  //       delete: {
+  //         label: '删除',
+  //         attrs: {
+  //           type: 'danger'
+  //         },
+  //         emit: packageContext(removeData),
+  //       },
+  //       edit: {
+  //         label: '编辑',
+  //         emit: packageContext(openEditionDialog),
+  //       }
+  //     };
+  //     const defaultOperationVal = defaultOperation.value;
+  //     let index = 1;
+  //     let mergedOperations:any = [];
+  //     defaultOperationVal.split(',').forEach(key => {
+  //       key = key.trim();
+  //       if(!defaultOperationMap[key]) return;
+  //       if(key === 'delete' && !deletable) return;
+  //       if(key === 'editable' && editable) return; 
+  //       mergedOperations.push({
+  //         ...defaultOperationMap[key],
+  //         sort: index
+  //       });
+  //       index++;
+  //     });
+  //     // merge custom operations
+  //     if(Array.isArray(operationsVal)) {
+  //       operationsVal.forEach(({ label, attrs, emit, sort }) => {
+  //         if(!label) return;
+  //         mergedOperations.push({
+  //           label,
+  //           attrs,
+  //           emit: packageContext(emit),
+  //           sort
+  //         })
+  //       })
+  //     }
+  //     // adjust priority
+  //     mergedOperations = mergedOperations.sort(function(cur: any, next:any) {
+  //       return cur.sort && next.sort && cur.sort - next.sort;
+  //     });
+  //     return (
+  //       <div>
+  //         {
+  //           mergedOperations.map((operation: any) => {
+  //             const { label, attrs = {}, emit } = operation;
+  //             const type = attrs.type || 'default';
+  //             return (<ElButton type={type} onClick={emit}>{label}</ElButton>);
+  //           })
+  //         }
+  //       </div>
+  //     )
+  //   }
+  //   const formatterMap = {};
+  //   // TODO: 优化Promise.all
+  //   for(let column of props.columns) {
+  //     const { translate, prop }  = column;
+  //     if(
+  //       translate && 
+  //       Object.prototype.toString.call(translate.remoteOptions) === '[object Promise]'
+  //     ) {
+  //       const {
+  //         remoteOptions,
+  //         key = 'label',
+  //         value = 'value'
+  //       } = translate;
+  //       const tmpOptions = await remoteOptions;
+  //       if(Array.isArray(tmpOptions)) {
+  //         // TODO: 代码优化
+  //         formatterMap[column.prop] = {};
+  //         tmpOptions.forEach(option => {
+  //           formatterMap[column.prop][option[value]] = option[key]; 
+  //         })
+  //       }
+  //     }
+  //   }
+  //   const renderColumns = (columns: Columns) => {
+  //     if(!Array.isArray(columns)) return
+  //     const components: any = [];
+  //     columns.forEach(column => {
+  //       const { hidden, children, translate, ...props } = column;
+  //       if(hidden) return; 
+  //       let ChildrenItems = null as any;
+  //       let component = null;
+  //       if(Array.isArray(children) && children.length > 0) {
+  //         const { label, width } = props;
+  //         ChildrenItems = renderColumns(children);
+  //         component = (
+  //           ChildrenItems ? 
+  //           <ElTableColumn label={label} width={width}>
+  //             {ChildrenItems}
+  //           </ElTableColumn> :
+  //           <ElTableColumn label={label} width={width} />
+  //         );
+  //       }else {
+  //         const slotFn = slots[props.prop];
+  //         let formatter: any = props.formatter;
+  //         if(!formatter && formatterMap[props.prop]) {
+  //           formatter = (row, column, cellValue, index) => {
+  //             const map = formatterMap[props.prop];
+  //             return map[cellValue];
+  //           };
+  //         }
+  //         component = (
+  //           ChildrenItems ? 
+  //           <ElTableColumn formatter={formatter} {...props}>
+  //             {ChildrenItems}
+  //           </ElTableColumn> :
+  //           slotFn ? 
+  //             <ElTableColumn formatter={formatter} {...props}>
+  //             {{
+  //               // TODO: 会造成多次渲染，存在性能问题
+  //               default:(scope: any) => {
+  //                 if(!scope || scope.$index && scope.$index == -1) return; 
+  //                 return slotFn(scope)
+  //               }
+  //             }}
+  //             </ElTableColumn> :
+  //           <ElTableColumn formatter={formatter} {...props} />
+  //         );
+  //       }
+  //       components.push(component)
+  //     });
+  //     return components;
+  //   }
+  //   const root = ref(null as any);
+  //   onMounted(() => {
+  //     context.clearSelection = root.value.clearSelection;
+  //     context.toggleRowSelection = root.value.toggleRowSelection;
+  //     context.toggleAllSelection = root.value.toggleAllSelection;
+  //     context.toggleRowExpansion = root.value.toggleRowExpansion;
+  //     context.setCurrentRow = root.value.setCurrentRow;
+  //     context.clearSort = root.value.clearSort;
+  //     context.clearFilter = root.value.clearFilter;
+  //     context.doLayout = root.value.doLayout;
+  //     context.sort = root.value.sort;
+  //   })
+  //   return {
+  //     root,
+  //     renderOperationButtons,
+  //     renderColumns,
+  //     handleSelectionChange
+  //   }
+  // },
   setup: function setup(props, _ref) {
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var slots, emit, _toRefs, columns, operations, defaultOperation, context, packageContext, openDialog, closeDialog, selectedRows, handleSelectionChange, getSelectedRows, setSelectedRows, beforeAdd, add, afterAdd, beforeEdit, edit, afterEdit, beforeRemove, remove, afterRemove, renderOperationButtons, formatterMap, _iterator2, _step2, _loop, renderColumns, root;
+    var emit = _ref.emit,
+        slots = _ref.slots;
+    var context = {
+      clearSelection: function clearSelection() {},
+      toggleRowSelection: function toggleRowSelection() {},
+      toggleAllSelection: function toggleAllSelection() {},
+      toggleRowExpansion: function toggleRowExpansion() {},
+      setCurrentRow: function setCurrentRow() {},
+      clearSort: function clearSort() {},
+      clearFilter: function clearFilter() {},
+      doLayout: function doLayout() {},
+      sort: function sort() {},
+      openDialog: function openDialog() {},
+      closeDialog: function closeDialog() {},
+      createForm: function createForm() {
+        return src_form;
+      },
+      getSelectedRows: function getSelectedRows() {},
+      setSelectedRows: function setSelectedRows() {}
+    };
 
-      return regeneratorRuntime.wrap(function _callee$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              slots = _ref.slots, emit = _ref.emit;
-              _toRefs = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.toRefs)(props), columns = _toRefs.columns, operations = _toRefs.operations, defaultOperation = _toRefs.defaultOperation;
-              context = {
-                clearSelection: function clearSelection() {},
-                toggleRowSelection: function toggleRowSelection() {},
-                toggleAllSelection: function toggleAllSelection() {},
-                toggleRowExpansion: function toggleRowExpansion() {},
-                setCurrentRow: function setCurrentRow() {},
-                clearSort: function clearSort() {},
-                clearFilter: function clearFilter() {},
-                doLayout: function doLayout() {},
-                sort: function sort() {},
-                openDialog: function openDialog() {},
-                closeDialog: function closeDialog() {},
-                createForm: function createForm() {
-                  return src_form;
-                },
-                getSelectedRows: function getSelectedRows() {},
-                setSelectedRows: function setSelectedRows() {}
-              };
+    var packageContext = function packageContext(fn, props) {
+      return function () {
+        fn.apply(void 0, [context, props].concat(Array.prototype.slice.call(arguments)));
+      };
+    };
 
-              packageContext = function packageContext(fn) {
-                return function () {
-                  fn.apply(void 0, [context].concat(Array.prototype.slice.call(arguments)));
-                };
-              };
+    var selectedRows = [];
 
-              openDialog = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('openDialog') || null;
-              closeDialog = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('closeDialog') || null;
+    var handleSelectionChange = function handleSelectionChange(val) {
+      return selectedRows = val;
+    };
 
-              if (typeof openDialog === 'function') {
-                context.openDialog = openDialog;
-              }
+    var getSelectedRows = function getSelectedRows() {
+      return selectedRows;
+    };
 
-              if (typeof closeDialog === 'function') {
-                context.closeDialog = closeDialog;
-              }
+    var setSelectedRows = function setSelectedRows() {};
 
-              selectedRows = [];
+    context.getSelectedRows = getSelectedRows;
+    context.setSelectedRows = setSelectedRows;
+    var openDialog = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('openDialog') || null;
+    var closeDialog = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('closeDialog') || null;
 
-              handleSelectionChange = function handleSelectionChange(val) {
-                selectedRows = val;
-              };
+    if (typeof openDialog === 'function') {
+      context.openDialog = openDialog;
+    }
 
-              getSelectedRows = function getSelectedRows() {
-                return selectedRows;
-              };
+    if (typeof closeDialog === 'function') {
+      context.closeDialog = closeDialog;
+    }
 
-              setSelectedRows = function setSelectedRows() {};
+    var editionCriterions = [];
 
-              context.getSelectedRows = getSelectedRows;
-              context.setSelectedRows = setSelectedRows;
-              /**
-               * generate operationButtons
-               */
+    var mergeTools = function mergeTools(defaultTools, tools, options) {
+      var mergedTools = [];
+      var deletable = false;
+      var columns = options.columns,
+          beforeAdd = options.beforeAdd,
+          add = options.add,
+          afterAdd = options.afterAdd,
+          beforeRemove = options.beforeRemove,
+          remove = options.remove,
+          afterRemove = options.afterRemove;
+      var additionCriterions = [];
 
-              beforeAdd = props.beforeAdd, add = props.add, afterAdd = props.afterAdd, beforeEdit = props.beforeEdit, edit = props.edit, afterEdit = props.afterEdit, beforeRemove = props.beforeRemove, remove = props.remove, afterRemove = props.afterRemove;
+      var traverse = function traverse(columns, additionCriterions) {
+        if (!Array.isArray(columns)) return;
 
-              renderOperationButtons = function renderOperationButtons() {
-                var additionCriterions = [];
-                var editionCriterions = [];
-                var columnsVal = columns.value;
-                var deletable = false;
-                var editable = false;
-                /**
-                 * generate addition criterions and edition Criterions
-                 */
+        var _iterator = _createForOfIteratorHelper(columns),
+            _step;
 
-                var traverse = function traverse(columns, additionCriterions, editionCriterions) {
-                  if (!Array.isArray(columns)) return;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var column = _step.value;
+            var prop = column.prop,
+                label = column.label,
+                type = column.type,
+                addition = column.addition,
+                children = column.children;
 
-                  var _iterator = _createForOfIteratorHelper(columns),
-                      _step;
+            if (Array.isArray(children)) {
+              traverse(children, additionCriterions);
+            }
 
-                  try {
-                    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                      var column = _step.value;
-                      var label = column.label,
-                          type = column.type,
-                          prop = column.prop,
-                          addition = column.addition,
-                          edition = column.edition,
-                          children = column.children;
+            if (type === table_SELECTION) {
+              deletable = true;
+            }
 
-                      if (Array.isArray(children)) {
-                        traverse(children, additionCriterions, editionCriterions);
-                      } // verify delete and edit operation
+            if (!prop) continue;
+            var criterion = {
+              prop: prop,
+              label: label,
+              type: 'input',
+              attrs: {},
+              rules: [],
+              events: [],
+              hidden: false
+            };
 
-
-                      if (type === SELECTION) {
-                        deletable = true;
-                        editable = true;
-                      } // generate criterions
-
-
-                      if (!prop) continue;
-                      var criterion = {
-                        prop: prop,
-                        label: label,
-                        type: 'input',
-                        attrs: {},
-                        rules: [],
-                        events: [],
-                        // TODO: 新增hidden字段
-                        hidden: false
-                      };
-
-                      if ((0,esm_typeof/* default */.Z)(addition) === 'object' && addition !== null) {
-                        additionCriterions.push(lodash_default().merge({}, criterion, {
-                          type: addition.type,
-                          prop: addition.prop,
-                          label: addition.label,
-                          showMessage: addition.showMessage,
-                          inlineMessage: addition.inlineMessage,
-                          size: addition.size,
-                          disabled: addition.disabled,
-                          rules: addition.rules,
-                          attrs: addition.attrs,
-                          events: addition.events,
-                          isShow: addition.isShow
-                        }));
-                      }
-
-                      if ((0,esm_typeof/* default */.Z)(edition) === 'object' && edition !== null) {
-                        editionCriterions.push(lodash_default().merge({}, criterion, {
-                          type: edition.type,
-                          prop: edition.prop,
-                          label: edition.label,
-                          showMessage: edition.showMessage,
-                          inlineMessage: edition.inlineMessage,
-                          size: edition.size,
-                          disabled: edition.disabled,
-                          rules: edition.rules,
-                          attrs: edition.attrs,
-                          events: edition.events,
-                          isShow: edition.isShow
-                        }));
-                      }
-                    }
-                  } catch (err) {
-                    _iterator.e(err);
-                  } finally {
-                    _iterator.f();
-                  }
-                };
-
-                traverse(columnsVal, additionCriterions, editionCriterions); // TODO: 存在多次渲染问题
-
-                var openAdditionDialog = function openAdditionDialog(context) {
-                  var Form = context.createForm();
-                  var props = {
-                    inline: false,
-                    criterions: additionCriterions,
-                    labelWidth: "80px",
-                    onSubmit: add,
-                    closeOnClickModal: false,
-                    closeOnPressEscape: false
-                  };
-                  props = lodash_default().merge({}, props, beforeAdd(lodash_default().cloneDeep(props) || {}));
-                  context.openDialog({
-                    title: '新增'
-                  }, Form, props);
-                  afterAdd();
-                };
-
-                var openEditionDialog = function openEditionDialog(context) {
-                  var selectedRows = context.getSelectedRows();
-                  if (selectedRows.length !== 1) return;
-                  var selectedRow = selectedRows[0];
-
-                  for (var i = 0; i < editionCriterions.length; i++) {
-                    if (editionCriterions[i].prop) {
-                      editionCriterions[i].defaultModeValue = selectedRow[editionCriterions[i].prop] || "";
-                    }
-                  }
-
-                  console.log('editionCriterions', editionCriterions);
-                  var props = {
-                    inline: false,
-                    criterions: editionCriterions,
-                    labelWidth: "80px",
-                    onSubmit: edit,
-                    closeOnClickModal: false,
-                    closeOnPressEscape: false
-                  };
-                  props = lodash_default().merge({}, props, beforeEdit(lodash_default().cloneDeep(props) || {}));
-                  context.openDialog({
-                    title: '编辑'
-                  }, src_form, props);
-                  afterEdit();
-                };
-
-                var removeData = function removeData(context) {
-                  var selectedRows = context.getSelectedRows();
-                  if (selectedRows.length < 1) return;
-                  beforeRemove(selectedRows);
-                  remove(selectedRows);
-                  afterRemove();
-                };
-                /**
-                 * generate operations buttons
-                 */
-
-
-                var operationsVal = operations.value;
-                var defaultOperationMap = {
-                  add: {
-                    label: '添加',
-                    attrs: {
-                      type: 'primary'
-                    },
-                    emit: packageContext(openAdditionDialog)
-                  },
-                  "delete": {
-                    label: '删除',
-                    attrs: {
-                      type: 'danger'
-                    },
-                    emit: packageContext(removeData)
-                  },
-                  edit: {
-                    label: '编辑',
-                    emit: packageContext(openEditionDialog)
-                  }
-                };
-                var defaultOperationVal = defaultOperation.value;
-                var index = 1;
-                var mergedOperations = [];
-                defaultOperationVal.split(',').forEach(function (key) {
-                  key = key.trim();
-                  if (!defaultOperationMap[key]) return;
-                  if (key === 'delete' && !deletable) return;
-                  if (key === 'editable' && editable) return;
-                  mergedOperations.push(_objectSpread2(_objectSpread2({}, defaultOperationMap[key]), {}, {
-                    sort: index
-                  }));
-                  index++;
-                }); // merge custom operations
-
-                if (Array.isArray(operationsVal)) {
-                  operationsVal.forEach(function (_ref2) {
-                    var label = _ref2.label,
-                        attrs = _ref2.attrs,
-                        emit = _ref2.emit,
-                        sort = _ref2.sort;
-                    if (!label) return;
-                    mergedOperations.push({
-                      label: label,
-                      attrs: attrs,
-                      emit: packageContext(emit),
-                      sort: sort
-                    });
-                  });
-                } // adjust priority
-
-
-                mergedOperations = mergedOperations.sort(function (cur, next) {
-                  return cur.sort && next.sort && cur.sort - next.sort;
-                });
-                return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)("div", null, [mergedOperations.map(function (operation) {
-                  var label = operation.label,
-                      _operation$attrs = operation.attrs,
-                      attrs = _operation$attrs === void 0 ? {} : _operation$attrs,
-                      emit = operation.emit;
-                  var type = attrs.type || 'default';
-                  return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElButton"), {
-                    "type": type,
-                    "onClick": emit
-                  }, table_isSlot(label) ? label : {
-                    "default": function _default() {
-                      return [label];
-                    }
-                  });
-                })]);
-              };
-
-              formatterMap = {}; // TODO: 优化Promise.all
-
-              _iterator2 = _createForOfIteratorHelper(props.columns);
-              _context2.prev = 18;
-              _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
-                var column, translate, prop, remoteOptions, _translate$key, key, _translate$value, value, tmpOptions;
-
-                return regeneratorRuntime.wrap(function _loop$(_context) {
-                  while (1) {
-                    switch (_context.prev = _context.next) {
-                      case 0:
-                        column = _step2.value;
-                        translate = column.translate, prop = column.prop;
-
-                        if (!(translate && Object.prototype.toString.call(translate.remoteOptions) === '[object Promise]')) {
-                          _context.next = 8;
-                          break;
-                        }
-
-                        remoteOptions = translate.remoteOptions, _translate$key = translate.key, key = _translate$key === void 0 ? 'label' : _translate$key, _translate$value = translate.value, value = _translate$value === void 0 ? 'value' : _translate$value;
-                        _context.next = 6;
-                        return remoteOptions;
-
-                      case 6:
-                        tmpOptions = _context.sent;
-
-                        if (Array.isArray(tmpOptions)) {
-                          // TODO: 代码优化
-                          formatterMap[column.prop] = {};
-                          tmpOptions.forEach(function (option) {
-                            formatterMap[column.prop][option[value]] = option[key];
-                          });
-                        }
-
-                      case 8:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }
-                }, _loop);
-              });
-
-              _iterator2.s();
-
-            case 21:
-              if ((_step2 = _iterator2.n()).done) {
-                _context2.next = 25;
-                break;
-              }
-
-              return _context2.delegateYield(_loop(), "t0", 23);
-
-            case 23:
-              _context2.next = 21;
-              break;
-
-            case 25:
-              _context2.next = 30;
-              break;
-
-            case 27:
-              _context2.prev = 27;
-              _context2.t1 = _context2["catch"](18);
-
-              _iterator2.e(_context2.t1);
-
-            case 30:
-              _context2.prev = 30;
-
-              _iterator2.f();
-
-              return _context2.finish(30);
-
-            case 33:
-              renderColumns = function renderColumns(columns) {
-                if (!Array.isArray(columns)) return;
-                var components = [];
-                columns.forEach(function (column) {
-                  var hidden = column.hidden,
-                      children = column.children,
-                      translate = column.translate,
-                      props = _objectWithoutProperties(column, ["hidden", "children", "translate"]);
-
-                  if (hidden) return;
-                  var ChildrenItems = null;
-                  var component = null;
-
-                  if (Array.isArray(children) && children.length > 0) {
-                    var label = props.label,
-                        width = props.width;
-                    ChildrenItems = renderColumns(children);
-                    component = ChildrenItems ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), {
-                      "label": label,
-                      "width": width
-                    }, table_isSlot(ChildrenItems) ? ChildrenItems : {
-                      "default": function _default() {
-                        return [ChildrenItems];
-                      }
-                    }) : (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), {
-                      "label": label,
-                      "width": width
-                    }, null);
-                  } else {
-                    var slotFn = slots[props.prop];
-                    var formatter = props.formatter;
-
-                    if (!formatter && formatterMap[props.prop]) {
-                      formatter = function formatter(row, column, cellValue, index) {
-                        var map = formatterMap[props.prop];
-                        return map[cellValue];
-                      };
-                    }
-
-                    component = ChildrenItems ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
-                      "formatter": formatter
-                    }, props), table_isSlot(ChildrenItems) ? ChildrenItems : {
-                      "default": function _default() {
-                        return [ChildrenItems];
-                      }
-                    }) : slotFn ? (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
-                      "formatter": formatter
-                    }, props), {
-                      // TODO: 会造成多次渲染，存在性能问题
-                      "default": function _default(scope) {
-                        if (!scope || scope.$index && scope.$index == -1) return;
-                        return slotFn(scope);
-                      }
-                    }) : (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTableColumn"), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.mergeProps)({
-                      "formatter": formatter
-                    }, props), null);
-                  }
-
-                  components.push(component);
-                });
-                return components;
-              };
-
-              root = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(null);
-              (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.onMounted)(function () {
-                context.clearSelection = root.value.clearSelection;
-                context.toggleRowSelection = root.value.toggleRowSelection;
-                context.toggleAllSelection = root.value.toggleAllSelection;
-                context.toggleRowExpansion = root.value.toggleRowExpansion;
-                context.setCurrentRow = root.value.setCurrentRow;
-                context.clearSort = root.value.clearSort;
-                context.clearFilter = root.value.clearFilter;
-                context.doLayout = root.value.doLayout;
-                context.sort = root.value.sort;
-              });
-              return _context2.abrupt("return", {
-                root: root,
-                renderOperationButtons: renderOperationButtons,
-                renderColumns: renderColumns,
-                handleSelectionChange: handleSelectionChange
-              });
-
-            case 37:
-            case "end":
-              return _context2.stop();
+            if ((0,esm_typeof/* default */.Z)(addition) === 'object' && addition !== null) {
+              additionCriterions.push(lodash_default().merge({}, criterion, {
+                type: addition.type,
+                prop: addition.prop,
+                label: addition.label,
+                showMessage: addition.showMessage,
+                inlineMessage: addition.inlineMessage,
+                size: addition.size,
+                disabled: addition.disabled,
+                rules: addition.rules,
+                attrs: addition.attrs,
+                events: addition.events,
+                isShow: addition.isShow
+              }));
+            }
           }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
         }
-      }, _callee, null, [[18, 27, 30, 33]]);
-    }))();
+      };
+
+      var openAdditionDialog = function openAdditionDialog(context) {
+        var Form = context.createForm();
+        var props = {
+          inline: false,
+          criterions: additionCriterions,
+          labelWidth: "80px",
+          onSubmit: add
+        };
+        props = lodash_default().merge({}, props, beforeAdd(lodash_default().cloneDeep(props) || {}));
+        context.openDialog({
+          title: '新增',
+          closeOnClickModal: false,
+          closeOnPressEscape: false
+        }, Form, props);
+        afterAdd();
+      };
+
+      var removeRows = function removeRows(context) {
+        var selectedRows = context.getSelectedRows();
+
+        if (selectedRows.length < 1) {
+          return;
+        }
+
+        beforeRemove(selectedRows);
+        remove(selectedRows);
+        afterRemove();
+      };
+
+      var toolMap = {
+        add: {
+          label: '新增',
+          attrs: {
+            type: 'primary'
+          },
+          sort: 0,
+          emit: openAdditionDialog
+        },
+        "delete": {
+          label: '删除',
+          attrs: {
+            type: 'danger'
+          },
+          sort: 0,
+          emit: removeRows
+        }
+      };
+      traverse(columns, additionCriterions);
+      var index = 1;
+      defaultTools.split(",").forEach(function (key) {
+        key = (0,lodash.trim)(key);
+        if (!toolMap[key] || key === 'delete' && !deletable) return;
+        mergedTools.push({
+          label: toolMap[key].label || '',
+          attrs: toolMap[key].attrs,
+          sort: index,
+          emit: packageContext(toolMap[key].emit)
+        });
+        index++;
+      });
+
+      if (Array.isArray(tools) && tools.length > 0) {
+        tools.forEach(function (tool) {
+          mergedTools.push({
+            label: tool.label,
+            attrs: tool.attrs || {},
+            sort: tool.sort,
+            emit: packageContext(emit)
+          });
+        });
+      }
+
+      mergedTools = mergedTools.sort(function (cur, next) {
+        return cur.sort && next.sort && cur.sort - next.sort;
+      });
+      return mergedTools;
+    };
+
+    var generateOperationsFn = function generateOperationsFn(defaultOperations, operations, options) {
+      var mergedOperations = [];
+      var columns = options.columns,
+          beforeEdit = options.beforeEdit,
+          edit = options.edit,
+          afterEdit = options.afterEdit;
+      var editionCriterions = [];
+
+      var traverse = function traverse(columns, editionCriterions) {
+        if (!Array.isArray(columns)) return;
+
+        var _iterator2 = _createForOfIteratorHelper(columns),
+            _step2;
+
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var column = _step2.value;
+            var prop = column.prop,
+                label = column.label,
+                edition = column.edition,
+                children = column.children;
+
+            if (Array.isArray(children)) {
+              traverse(children, editionCriterions);
+            }
+
+            if (!prop) continue;
+            var criterion = {
+              prop: prop,
+              label: label,
+              type: 'input',
+              attrs: {},
+              rules: [],
+              events: [],
+              hidden: false
+            };
+
+            if ((0,esm_typeof/* default */.Z)(edition) === 'object' && edition !== null) {
+              editionCriterions.push(lodash_default().merge({}, criterion, {
+                type: edition.type,
+                prop: edition.prop,
+                label: edition.label,
+                showMessage: edition.showMessage,
+                inlineMessage: edition.inlineMessage,
+                size: edition.size,
+                disabled: edition.disabled,
+                rules: edition.rules,
+                attrs: edition.attrs,
+                events: edition.events,
+                isShow: edition.isShow
+              }));
+            }
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      };
+
+      var openEditionDialog = function openEditionDialog(context, props) {
+        var row = props.row;
+
+        for (var i = 0; i < editionCriterions.length; i++) {
+          editionCriterions[i].defaultModeValue = row[editionCriterions[i].prop] || "";
+        }
+
+        var Form = context.createForm();
+        var formProps = {
+          inline: false,
+          criterions: editionCriterions,
+          labelWidth: "80px",
+          onSubmit: edit,
+          closeOnClickModal: false,
+          closeOnPressEscape: false
+        };
+        formProps = lodash_default().merge({}, formProps, beforeEdit(lodash_default().cloneDeep(formProps) || {}));
+        context.openDialog({
+          title: '编辑'
+        }, Form, formProps);
+        afterEdit();
+      };
+
+      var openQueryDialog = function openQueryDialog(context, props) {};
+
+      var operationMap = {
+        query: {
+          label: '查看',
+          attrs: {
+            type: 'text'
+          },
+          sort: 0,
+          emit: openQueryDialog
+        },
+        edit: {
+          label: '编辑',
+          attrs: {
+            type: 'text'
+          },
+          sort: 0,
+          emit: openEditionDialog
+        }
+      };
+
+      var fn = function fn() {};
+
+      traverse(columns, editionCriterions);
+      var index = 1;
+      defaultOperations.split(",").forEach(function (key) {
+        key = (0,lodash.trim)(key);
+        if (!operationMap[key]) return;
+        console.log(key, operationMap[key]);
+        mergedOperations.push({
+          label: operationMap[key].label || '',
+          attrs: operationMap[key].attrs,
+          sort: index,
+          emit: typeof operationMap[key].emit === 'function' ? operationMap[key].emit : fn
+        });
+        index++;
+      });
+
+      if (Array.isArray(operations) && operations.length > 0) {
+        operations.forEach(function (operation) {
+          mergedOperations.push({
+            label: operation.label,
+            attrs: operation.attrs || {},
+            sort: operation.sort,
+            emit: typeof operation.emit === 'function' ? operation.emit : fn
+          });
+        });
+      }
+
+      mergedOperations = mergedOperations.sort(function (cur, next) {
+        return cur.sort && next.sort && cur.sort - next.sort;
+      });
+      return function (props) {
+        return mergedOperations.map(function (_ref2) {
+          var label = _ref2.label,
+              attrs = _ref2.attrs,
+              emit = _ref2.emit;
+          return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElButton"), {
+            "type": attrs.type,
+            "onClick": packageContext(emit, props)
+          }, table_isSlot(label) ? label : {
+            "default": function _default() {
+              return [label];
+            }
+          });
+        });
+      };
+    };
+
+    return {
+      mergeTools: mergeTools,
+      handleSelectionChange: handleSelectionChange,
+      generateOperationsFn: generateOperationsFn
+    };
   },
   render: function render() {
-    var _slot;
-
     var _this = this;
 
-    return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)("div", null, [this.renderOperationButtons(), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElTable"), {
-      "ref": function ref(_ref3) {
-        _this.root = _ref3;
-      },
-      "data": this.data,
-      "size": this.size,
-      "width": this.width,
-      "height": this.height,
-      "maxHeight": this.maxHeight,
-      "fit": this.fit,
-      "stripe": this.stripe,
-      "border": this.border,
-      "rowKey": this.rowKey,
-      "showHeader": this.showHeader,
-      "showSummary": this.showSummary,
-      "sumText": this.sumText,
-      "summaryMethod": this.summaryMethod,
-      "rowClassName": this.rowClassName,
-      "rowStyle": this.rowStyle,
-      "cellClassName": this.cellClassName,
-      "cellStyle": this.cellStyle,
-      "headerRowClassName": this.headerRowClassName,
-      "headerRowStyle": this.headerRowStyle,
-      "headerCellClassName": this.headerCellClassName,
-      "headerCellStyle": this.headerCellStyle,
-      "highlightCurrentRow": this.highlightCurrentRow,
-      "currentRowKey": this.currentRowKey,
-      "emptyText": this.emptyText,
-      "expandRowKeys": this.expandRowKeys,
-      "defaultExpandAll": this.defaultExpandAll,
-      "defaultSort": this.defaultSort,
-      "tooltipEffect": this.tooltipEffect,
-      "spanMethod": this.spanMethod,
-      "selectOnIndeterminate": this.selectOnIndeterminate,
-      "indent": this.indent,
-      "treeProps": this.treeProps,
-      "lazy": this.lazy,
-      "load": this.load,
-      "onSelectionChange": this.handleSelectionChange
-    }, table_isSlot(_slot = this.renderColumns(this.columns)) ? _slot : {
+    var operationsFn = this.generateOperationsFn(this.defaultOperations, this.operations, {
+      columns: this.columns,
+      beforeEdit: this.beforeEdit,
+      edit: this.edit,
+      afterEdit: this.afterEdit,
+      beforeQuery: this.beforeQuery,
+      query: this.query,
+      afterQuery: this.afterQuery
+    });
+    return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.Suspense, null, {
       "default": function _default() {
-        return [_slot];
+        var slot = {
+          operation: function operation(props) {
+            return operationsFn(props);
+          }
+        };
+        Object.keys(_this.$slots).forEach(function (key) {
+          slot[key] = _this.$slots[key];
+        });
+        return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.Fragment, null, [(0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(toolbar, {
+          "tools": _this.mergeTools(_this.defaultTools, _this.tools, {
+            columns: _this.columns,
+            beforeAdd: _this.beforeAdd,
+            add: _this.add,
+            afterAdd: _this.afterAdd,
+            beforeRemove: _this.beforeRemove,
+            remove: _this.remove,
+            afterRemove: _this.afterRemove
+          })
+        }, null), (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)(child_table, {
+          "data": _this.data,
+          "columns": _this.columns,
+          "size": _this.size,
+          "width": _this.width,
+          "height": _this.height,
+          "maxHeight": _this.maxHeight,
+          "fit": _this.fit,
+          "stripe": _this.stripe,
+          "border": _this.border,
+          "rowKey": _this.rowKey,
+          "showHeader": _this.showHeader,
+          "showSummary": _this.showSummary,
+          "sumText": _this.sumText,
+          "summaryMethod": _this.summaryMethod,
+          "rowClassName": _this.rowClassName,
+          "rowStyle": _this.rowStyle,
+          "cellClassName": _this.cellClassName,
+          "cellStyle": _this.cellStyle,
+          "headerRowClassName": _this.headerRowClassName,
+          "headerRowStyle": _this.headerRowStyle,
+          "headerCellClassName": _this.headerCellClassName,
+          "headerCellStyle": _this.headerCellStyle,
+          "highlightCurrentRow": _this.highlightCurrentRow,
+          "currentRowKey": _this.currentRowKey,
+          "emptyText": _this.emptyText,
+          "expandRowKeys": _this.expandRowKeys,
+          "defaultExpandAll": _this.defaultExpandAll,
+          "defaultSort": _this.defaultSort,
+          "tooltipEffect": _this.tooltipEffect,
+          "spanMethod": _this.spanMethod,
+          "selectOnIndeterminate": _this.selectOnIndeterminate,
+          "indent": _this.indent,
+          "treeProps": _this.treeProps,
+          "lazy": _this.lazy,
+          "load": _this.load,
+          "onSelectionChange": _this.handleSelectionChange
+        }, table_isSlot(slot) ? slot : {
+          "default": function _default() {
+            return [slot];
+          }
+        })]);
+      },
+      fallback: function fallback() {
+        return '加载中';
       }
-    })]);
+    });
   }
 }));
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-6.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-6.use[2]!./node_modules/element-plus/lib/theme-chalk/el-pagination.css
@@ -54813,8 +55249,6 @@ var lib_el_pagination = __webpack_require__(1341);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.small.js
 var es_string_small = __webpack_require__(7590);
 ;// CONCATENATED MODULE: ./src/pagination/index.tsx
-
-
 
 
 
@@ -54861,79 +55295,81 @@ var es_string_small = __webpack_require__(7590);
     background: Boolean,
     disabled: Boolean,
     hideOnSinglePage: Boolean,
-    currentPage: Number,
-    pageSize: Number
+    currentPage: {
+      type: Number,
+      "default": 1
+    },
+    pageSize: {
+      type: Number,
+      "default": 10
+    }
   },
-  emits: ['size-change', 'current-change', 'prev-click', 'next-click', 'update:currentPage', 'update:pageSize'],
+  emits: ['size-change', 'current-change', 'prev-click', 'next-click'],
   setup: function setup(props, _ref) {
     var slots = _ref.slots,
         emit = _ref.emit;
-    var currentPage = null;
+    var currentPage = props.currentPage;
+    var pageSize = props.pageSize;
 
-    var currentChange = function currentChange(val) {};
+    var handleCurrentChange = function handleCurrentChange(page) {
+      currentPage = page;
+      emit('current-change', {
+        current: currentPage,
+        size: pageSize
+      });
+    };
 
-    if (props.currentPage) {
-      currentPage = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(props.currentPage);
+    var handlePrevClick = function handlePrevClick(page) {
+      currentPage = page;
+      emit('prev-click', {
+        current: currentPage,
+        size: pageSize
+      });
+    };
 
-      currentChange = function currentChange(val) {
-        emit('update:currentPage', val);
-      };
-    } else {
-      currentPage = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('currentPage'); // TODO: 类型修复
+    var handleNextClick = function handleNextClick(page) {
+      currentPage = page;
+      emit('next-click', {
+        current: currentPage,
+        size: pageSize
+      });
+    };
 
-      currentChange = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('updateCurrentPage');
-    }
-
-    var pageSize = null;
-
-    var sizeChange = function sizeChange(val) {};
-
-    if (props.pageSize) {
-      pageSize = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.ref)(props.pageSize);
-
-      sizeChange = function sizeChange(val) {
-        emit('update:pageSize', val);
-      };
-    } else {
-      pageSize = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('pageSize'); // TODO: 类型修复
-
-      sizeChange = (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.inject)('updatePageSize');
-    }
-
-    var eventHandler = function eventHandler(event) {
-      return function () {
-        emit.apply(void 0, [event].concat(Array.prototype.slice.call(arguments)));
-      };
+    var handleSizeChange = function handleSizeChange(size) {
+      pageSize = size;
+      emit('size-change', {
+        current: currentPage,
+        size: pageSize
+      });
     };
 
     return {
-      eventHandler: eventHandler,
-      currentPage: currentPage,
-      pageSize: pageSize,
-      currentChange: currentChange,
-      sizeChange: sizeChange
+      handleCurrentChange: handleCurrentChange,
+      handleSizeChange: handleSizeChange,
+      handlePrevClick: handlePrevClick,
+      handleNextClick: handleNextClick
     };
   },
   render: function render() {
     return (0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.createVNode)((0,external_root_Vue_commonjs_vue_commonjs2_vue_amd_vue_.resolveComponent)("ElPagination"), {
       "currentPage": this.currentPage,
-      "pageSize": this.pageSize,
-      "pageSizes": this.pageSizes,
-      "layout": this.layout,
-      "total": this.total,
       "small": this.small,
+      "total": this.total,
       "pageCount": this.pageCount,
       "pagerCount": this.pagerCount,
+      "layout": this.layout,
+      "pageSizes": this.pageSizes,
       "popperClass": this.popperClass,
       "prevText": this.prevText,
       "nextText": this.nextText,
       "background": this.background,
       "disabled": this.disabled,
       "hideOnSinglePage": this.hideOnSinglePage,
-      "onSizeChange": this.sizeChange,
-      "onCurrentChange": this.currentChange,
-      "onPrevClick": this.eventHandler('prev-click'),
-      "onNextClick": this.eventHandler('next-click')
+      "pageSize": this.pageSize,
+      "onSizeChange": this.handleSizeChange,
+      "onCurrentChange": this.handleCurrentChange,
+      "onPrevClick": this.handlePrevClick,
+      "onNextClick": this.handleNextClick
     }, null);
   }
 }));
@@ -54945,7 +55381,7 @@ var es_string_small = __webpack_require__(7590);
 
 
 
-var version = '1.0.0';
+var version = '0.3.0';
 var components = [container, src_form, table, pagination];
 
 var install = function install(app) {
