@@ -1,12 +1,8 @@
 import {
   PropType,
   defineComponent,
-  inject,
   ref,
-  toRefs,
-  onMounted,
-  toRaw,
-  isRef
+  VNode
 } from 'vue'
 
 import _ from 'lodash';
@@ -14,6 +10,9 @@ import { ElTable, ElTableColumn, ElButton } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-table.css';
 import 'element-plus/lib/theme-chalk/el-table-column.css';
 import 'element-plus/lib/theme-chalk/el-button.css';
+
+import { Columns } from './token';
+import { IObjectKeys } from '../utils';
 
 const SELECTION = 'selection'
 export default defineComponent({
@@ -28,7 +27,7 @@ export default defineComponent({
       default: []
     },
     columns: {
-      type: Array,
+      type: Array as PropType<Columns>,
       default: []
     },
     size: String,
@@ -87,72 +86,98 @@ export default defineComponent({
   },
   emits: ['selection-change'],
   async setup(props, { slots, emit }) {
-    const { columns } =  toRefs(props);
+    const { columns } = props;
+    const formatterMap: IObjectKeys = {};
+    const searchTranslateAPI = async (columns: Columns, formatterMap: IObjectKeys) => {
+      if(!Array.isArray(columns)) return;
 
-    const root  = ref(null as any);
-    onMounted(() => {});
+      for(let column of columns) {
+        const { hidden, children, translate, prop } = column;
+        
+        if(hidden) continue;
 
-    const renderColumns = () => {
-      const recursion = (cols) => {
-        if(!Array.isArray(cols)) return;
+        if(Array.isArray(children) && children.length > 0) {
+          searchTranslateAPI(children, formatterMap)
+        } else if(
+          translate && 
+          Object.prototype.toString.call(translate.API) === '[object Promise]'
+        ) {
+          const {
+            API,
+            key = 'label',
+            value = 'value'
+          } = translate;
+          const remoteOptions = await API;
+          
+          formatterMap[prop] = {};
+          remoteOptions.forEach(option => {
+            formatterMap[prop][option[value]] = option[key]; 
+          });
+        }
+      }
+    }
+    await searchTranslateAPI(columns, formatterMap)
 
-        const colComps: any = [];
-        cols.forEach(col => {
-          const { hidden, children, translate, ...props } = col;
+    const renderColumns = (columns: Columns, formatterMap: IObjectKeys) => {
+      if(!Array.isArray(columns)) return;
+      const colComponents: Array<VNode> = [];
 
-          if(hidden) return;
+      for(let column of columns) {
+        if(!Array.isArray(columns)) return;
+        const { hidden, children, translate, ...props } = column;
 
-          let colComp: any;
+        if(hidden) continue;
 
-          if(Array.isArray(children) && children.length > 0) {
-            const { label, width } = props;
-            const childComps: any = recursion(children);
+        let colComponent: VNode;
 
-            colComp = (
-              childComps ?
-              <ElTableColumn label={label} width={width}>
-                {childComps}
-              </ElTableColumn> :
-              <ElTableColumn label={label} width={width} />
-            );
-          } else {
-            const slotFn = slots[props.prop];
-            let formatter: any = props.formatter;
+        if(Array.isArray(children) && children.length > 0) {
+          const { label, width } = props;
+          const childComps: any = renderColumns(children, formatterMap);
 
-            // if(!formatter && formatterMap[props.prop]) {
+          colComponent = (
+            childComps ?
+            // @ts-ignore
+            <ElTableColumn label={label} width={width}>
+              {childComps}
+            </ElTableColumn> :
+            // @ts-ignore
+            <ElTableColumn label={label} width={width} />
+          );
+        } else {
+          const slotFn = slots[props.prop];
+          let formatter: any = props.formatter;
 
-            // }
-
-            colComp = (
-              slotFn ? 
-              <ElTableColumn formatter={formatter} {...props}>
-                {{
-                  default: (scope: any) => slotFn(scope)
-                }}
-              </ElTableColumn> :
-              <ElTableColumn formatter={formatter} {...props} />
-            );
+          if(!formatter && formatterMap[props.prop]) {
+            formatter = (row: any, column: any, cellValue: any, index: number) => {
+              const map = formatterMap[props.prop];
+              return map[cellValue];
+            };
           }
 
-          colComps.push(colComp);
-        })
+          colComponent = (
+            slotFn ?
+            <ElTableColumn formatter={formatter} {...props}>
+              {{
+                default: (scope: any) => slotFn(scope)
+              }}
+            </ElTableColumn> :
+            <ElTableColumn formatter={formatter} {...props} />
+          );
+        }
 
-        return colComps;
-      };
+        colComponents.push(colComponent);
+      }
 
-      return recursion(columns.value)
+      return colComponents;
     }
-  
-    // await new Promise((resolve) =>{
-    //   setTimeout(() =>{
-    //     resolve(0)
-    //   }, 2000)
-    // })
 
     const handleSelectionChange = (val: any) => emit('selection-change', val);
 
+    const root = ref(null);
+  
     return {
       root,
+      formatterMap,
       handleSelectionChange,
       renderColumns
     }
@@ -198,7 +223,7 @@ export default defineComponent({
         // @ts-ignore
         onSelectionChange={this.handleSelectionChange}
       >
-        {this.renderColumns()}
+        {this.renderColumns(this.columns, this.formatterMap)}
       </ElTable>
     );
   }

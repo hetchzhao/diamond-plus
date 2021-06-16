@@ -1,13 +1,9 @@
 import {
   PropType,
   defineComponent,
-  provide,
   inject,
-  ref,
   onMounted,
-  toRefs,
-  Suspense,
-  reactive,
+  Suspense
 } from 'vue'
 import _, { trim } from 'lodash';
 import { ElButton } from 'element-plus'
@@ -15,16 +11,18 @@ import 'element-plus/lib/theme-chalk/el-table.css';
 import 'element-plus/lib/theme-chalk/el-alert.css';
 import 'element-plus/lib/theme-chalk/el-button.css';
 
-import Form from '../form'
-import { Columns, Operations } from './token'
+import Form from '../form';
 
 import Toolbar from './toolbar';
 import ChildTable from './child-table';
 
+import { Tools, Operations, Columns } from './token';
+import { Criterions } from '../form/token'
+import { IObjectKeys } from '../utils';
+
 const SELECTION = 'selection';
 export default defineComponent({
   name: 'dia-table',
-  // TODO: 全量加载时不需要注册组件，查看下原因
   components: {
     ElButton
   },
@@ -95,7 +93,7 @@ export default defineComponent({
       default: 'add, delete'
     },
     tools: {
-      type: Array,
+      type: Array as PropType<Tools>,
       default: []
     },
     defaultOperations: {
@@ -156,367 +154,8 @@ export default defineComponent({
     }
   },
   emits: [],
-  // async setup(props, { slots, emit }) {
-  //   const { columns, operations, defaultOperation } = toRefs(props);
-
-  //   const context = {
-  //     clearSelection: () => {},
-  //     toggleRowSelection: () => {},
-  //     toggleAllSelection: () => {},
-  //     toggleRowExpansion: () => {},
-  //     setCurrentRow: () => {},
-  //     clearSort: () => {},
-  //     clearFilter: () => {},
-  //     doLayout: () => {},
-  //     sort: () => {},
-  //     openDialog: () => {},
-  //     closeDialog: () => {},
-  //     createForm: () => Form,
-  //     getSelectedRows: () => {},
-  //     setSelectedRows: () => {}
-  //   };
-  //   const packageContext = (fn: any) => function() {
-  //     fn(context, ...arguments);
-  //   }
-
-  //   const openDialog = inject('openDialog') || null;
-  //   const closeDialog = inject('closeDialog') || null;
-  //   if(typeof openDialog === 'function') {
-  //     context.openDialog = openDialog;
-  //   }
-  //   if(typeof closeDialog === 'function') {
-  //     context.closeDialog = closeDialog;
-  //   }
-
-  //   let selectedRows: any = [];
-  //   const handleSelectionChange = (val: any) => {
-  //     selectedRows = val;
-  //   }
-  //   const getSelectedRows = () => selectedRows;
-  //   const setSelectedRows = () => {};
-  //   context.getSelectedRows = getSelectedRows;
-  //   context.setSelectedRows = setSelectedRows;
-
-  //   /**
-  //    * generate operationButtons
-  //    */
-  //   const {
-  //     beforeAdd,
-  //     add,
-  //     afterAdd,
-  //     beforeEdit,
-  //     edit,
-  //     afterEdit,
-  //     beforeRemove,
-  //     remove,
-  //     afterRemove
-  //   } = props;
-
-  //   const renderOperationButtons = () => {
-  //     const additionCriterions: any = [];
-  //     const editionCriterions: any = [];
-  //     const columnsVal = columns.value;
-  //     let deletable = false;
-  //     let editable = false;
-
-  //     /**
-  //      * generate addition criterions and edition Criterions
-  //      */
-  //     const traverse = function(columns: Columns, additionCriterions: Array<any>, editionCriterions: Array<any>) {
-  //       if(!Array.isArray(columns)) return;
-
-  //       for(let column of columns) {
-  //         const { label, type, prop, addition, edition, children } = column;
-
-  //         if(Array.isArray(children)) {
-  //           traverse(children, additionCriterions, editionCriterions);
-  //         }
-
-  //         // verify delete and edit operation
-  //         if(type === SELECTION) {
-  //           deletable = true;
-  //           editable = true;
-  //         }
-
-  //         // generate criterions
-  //         if(!prop) continue;
-
-  //         const criterion = {
-  //           prop,
-  //           label,
-  //           type: 'input',
-  //           attrs: {},
-  //           rules: [],
-  //           events: [],
-  //           // TODO: 新增hidden字段
-  //           hidden: false
-  //         };
-
-  //         if(typeof addition === 'object' && addition !== null) {
-  //           additionCriterions.push(_.merge({}, criterion, {
-  //             type: addition.type,
-  //             prop: addition.prop,
-  //             label: addition.label,
-  //             showMessage: addition.showMessage,
-  //             inlineMessage: addition.inlineMessage,
-  //             size: addition.size,
-  //             disabled: addition.disabled,
-  //             rules: addition.rules,
-  //             attrs: addition.attrs,
-  //             events: addition.events,
-  //             isShow: addition.isShow
-  //           }));
-  //         }
-  //         if(typeof edition === 'object' && edition !== null) {
-  //           editionCriterions.push(_.merge({}, criterion, {
-  //             type: edition.type,
-  //             prop: edition.prop,
-  //             label: edition.label,
-  //             showMessage: edition.showMessage,
-  //             inlineMessage: edition.inlineMessage,
-  //             size: edition.size,
-  //             disabled: edition.disabled,
-  //             rules: edition.rules,
-  //             attrs: edition.attrs,
-  //             events: edition.events,
-  //             isShow: edition.isShow,
-  //           }));
-  //         }
-  //       }
-  //     }
-  //     traverse(columnsVal, additionCriterions, editionCriterions);
-
-  //     // TODO: 存在多次渲染问题
-  //     const openAdditionDialog = function(context:any) {
-  //       const Form = context.createForm();
-  //       let props = {
-  //         inline: false,
-  //         criterions: additionCriterions,
-  //         labelWidth: "80px",
-  //         onSubmit: add,
-  //         closeOnClickModal: false,
-  //         closeOnPressEscape: false
-  //       };
-
-  //       props = _.merge({}, props, beforeAdd(_.cloneDeep(props) || {}));
-  //       context.openDialog({ title: '新增' }, Form, props);
-  //       afterAdd();
-  //     };
-  //     const openEditionDialog = function(context:any) {
-  //       const selectedRows = context.getSelectedRows();
-
-  //       if(selectedRows.length !== 1) return;
-
-  //       const selectedRow = selectedRows[0];
-
-  //       for(let i = 0; i < editionCriterions.length; i++) {
-  //         if(editionCriterions[i].prop) {
-  //           editionCriterions[i].defaultModeValue = selectedRow[editionCriterions[i].prop] || "";
-  //         }
-  //       }
-  //       console.log('editionCriterions', editionCriterions);
-  //       let props = {
-  //         inline: false,
-  //         criterions: editionCriterions,
-  //         labelWidth: "80px",
-  //         onSubmit: edit,
-  //         closeOnClickModal: false,
-  //         closeOnPressEscape: false
-  //       };
-  //       props = _.merge({}, props, beforeEdit(_.cloneDeep(props) || {}));
-  //       context.openDialog({ title: '编辑' }, Form, props);
-  //       afterEdit();
-  //     };
-  //     const removeData = function(context:any) {
-  //       const selectedRows = context.getSelectedRows();
-
-  //       if(selectedRows.length < 1) return;
-
-  //       beforeRemove(selectedRows);
-  //       remove(selectedRows);
-  //       afterRemove();
-  //     };
-
-  //     /**
-  //      * generate operations buttons
-  //      */
-  //     const operationsVal = operations.value;
-  //     const defaultOperationMap: any = {
-  //       add: {
-  //         label: '添加',
-  //         attrs: {
-  //           type: 'primary',
-  //         },
-  //         emit: packageContext(openAdditionDialog),
-  //       },
-  //       delete: {
-  //         label: '删除',
-  //         attrs: {
-  //           type: 'danger'
-  //         },
-  //         emit: packageContext(removeData),
-  //       },
-  //       edit: {
-  //         label: '编辑',
-  //         emit: packageContext(openEditionDialog),
-  //       }
-  //     };
-  //     const defaultOperationVal = defaultOperation.value;
-  //     let index = 1;
-  //     let mergedOperations:any = [];
-  //     defaultOperationVal.split(',').forEach(key => {
-  //       key = key.trim();
-  //       if(!defaultOperationMap[key]) return;
-  //       if(key === 'delete' && !deletable) return;
-  //       if(key === 'editable' && editable) return; 
-
-  //       mergedOperations.push({
-  //         ...defaultOperationMap[key],
-  //         sort: index
-  //       });
-  //       index++;
-  //     });
-      
-  //     // merge custom operations
-  //     if(Array.isArray(operationsVal)) {
-  //       operationsVal.forEach(({ label, attrs, emit, sort }) => {
-  //         if(!label) return;
-
-  //         mergedOperations.push({
-  //           label,
-  //           attrs,
-  //           emit: packageContext(emit),
-  //           sort
-  //         })
-  //       })
-  //     }
-
-  //     // adjust priority
-  //     mergedOperations = mergedOperations.sort(function(cur: any, next:any) {
-  //       return cur.sort && next.sort && cur.sort - next.sort;
-  //     });
-
-  //     return (
-  //       <div>
-  //         {
-  //           mergedOperations.map((operation: any) => {
-  //             const { label, attrs = {}, emit } = operation;
-  //             const type = attrs.type || 'default';
-  //             return (<ElButton type={type} onClick={emit}>{label}</ElButton>);
-  //           })
-  //         }
-  //       </div>
-  //     )
-  //   }
-
-  //   const formatterMap = {};
-  //   // TODO: 优化Promise.all
-  //   for(let column of props.columns) {
-  //     const { translate, prop }  = column;
-  //     if(
-  //       translate && 
-  //       Object.prototype.toString.call(translate.remoteOptions) === '[object Promise]'
-  //     ) {
-  //       const {
-  //         remoteOptions,
-  //         key = 'label',
-  //         value = 'value'
-  //       } = translate;
-  //       const tmpOptions = await remoteOptions;
-
-  //       if(Array.isArray(tmpOptions)) {
-  //         // TODO: 代码优化
-  //         formatterMap[column.prop] = {};
-  //         tmpOptions.forEach(option => {
-  //           formatterMap[column.prop][option[value]] = option[key]; 
-  //         })
-  //       }
-  //     }
-  //   }
-
-  //   const renderColumns = (columns: Columns) => {
-  //     if(!Array.isArray(columns)) return
-
-  //     const components: any = [];
-
-  //     columns.forEach(column => {
-  //       const { hidden, children, translate, ...props } = column;
-
-  //       if(hidden) return; 
-
-  //       let ChildrenItems = null as any;
-  //       let component = null;
-
-  //       if(Array.isArray(children) && children.length > 0) {
-  //         const { label, width } = props;
-
-  //         ChildrenItems = renderColumns(children);
-  //         component = (
-  //           ChildrenItems ? 
-  //           <ElTableColumn label={label} width={width}>
-  //             {ChildrenItems}
-  //           </ElTableColumn> :
-  //           <ElTableColumn label={label} width={width} />
-  //         );
-  //       }else {
-  //         const slotFn = slots[props.prop];
-  //         let formatter: any = props.formatter;
-
-  //         if(!formatter && formatterMap[props.prop]) {
-
-  //           formatter = (row, column, cellValue, index) => {
-  //             const map = formatterMap[props.prop];
-  //             return map[cellValue];
-  //           };
-  //         }
-
-  //         component = (
-  //           ChildrenItems ? 
-  //           <ElTableColumn formatter={formatter} {...props}>
-  //             {ChildrenItems}
-  //           </ElTableColumn> :
-  //           slotFn ? 
-  //             <ElTableColumn formatter={formatter} {...props}>
-  //             {{
-  //               // TODO: 会造成多次渲染，存在性能问题
-  //               default:(scope: any) => {
-  //                 if(!scope || scope.$index && scope.$index == -1) return; 
-  //                 return slotFn(scope)
-  //               }
-  //             }}
-  //             </ElTableColumn> :
-  //           <ElTableColumn formatter={formatter} {...props} />
-  //         );
-  //       }
-
-  //       components.push(component)
-  //     });
-
-  //     return components;
-  //   }
-    
-  //   const root = ref(null as any);
-  //   onMounted(() => {
-  //     context.clearSelection = root.value.clearSelection;
-  //     context.toggleRowSelection = root.value.toggleRowSelection;
-  //     context.toggleAllSelection = root.value.toggleAllSelection;
-  //     context.toggleRowExpansion = root.value.toggleRowExpansion;
-  //     context.setCurrentRow = root.value.setCurrentRow;
-  //     context.clearSort = root.value.clearSort;
-  //     context.clearFilter = root.value.clearFilter;
-  //     context.doLayout = root.value.doLayout;
-  //     context.sort = root.value.sort;
-  //   })
-
-  //   return {
-  //     root,
-  //     renderOperationButtons,
-  //     renderColumns,
-  //     handleSelectionChange
-  //   }
-  // },
   setup(props, { emit, slots }) {
-    const context = {
+    const context: IObjectKeys = {
       clearSelection: () => {},
       toggleRowSelection: () => {},
       toggleAllSelection: () => {},
@@ -534,9 +173,9 @@ export default defineComponent({
     };
     const packageContext = (fn: any, props?: any) => function() {
       fn(context, props, ...arguments);
-    }
+    };
 
-    let selectedRows: any = [];
+    let selectedRows: Array<any> = [];
     const handleSelectionChange = (val: any) => selectedRows = val;
     const getSelectedRows = () => selectedRows;
     const setSelectedRows = () => {};
@@ -552,10 +191,9 @@ export default defineComponent({
       context.closeDialog = closeDialog;
     }
 
-    const editionCriterions = [];
-    
-    const mergeTools = (defaultTools:string, tools, options) => {
-      let mergedTools = [];
+
+    const mergeTools = (defaultTools:string, tools: Tools, options: IObjectKeys) => {
+      let mergedTools: Tools = [];
       let deletable = false;
       const {
         columns,
@@ -566,8 +204,8 @@ export default defineComponent({
         remove,
         afterRemove
       } = options;
-      const additionCriterions = [];
-      const traverse = function(columns, additionCriterions) {
+      const additionCriterions: Criterions = [];
+      const traverse = function(columns: Columns, additionCriterions: Criterions) {
         if(!Array.isArray(columns)) return;
 
         for(let column of columns) {
@@ -610,7 +248,7 @@ export default defineComponent({
           }
         }
       };
-      const openAdditionDialog = function(context) {
+      const openAdditionDialog = function(context: IObjectKeys) {
         const Form = context.createForm();
         let props = {
           inline: false,
@@ -627,7 +265,7 @@ export default defineComponent({
         }, Form, props);
         afterAdd();
       };
-      const removeRows = function(context) {
+      const removeRows = function(context: IObjectKeys) {
         const selectedRows = context.getSelectedRows();
 
         if(selectedRows.length < 1) {
@@ -688,16 +326,16 @@ export default defineComponent({
       return mergedTools;
     }
 
-    const generateOperationsFn = (defaultOperations: string, operations, options) => {
-      let mergedOperations = [];
+    const generateOperationsFn = (defaultOperations: string, operations: Operations, options: IObjectKeys) => {
+      let mergedOperations: Operations = [];
       const {
         columns,
         beforeEdit,
         edit,
         afterEdit,
       } = options;
-      const editionCriterions = [];
-      const traverse = function(columns, editionCriterions) {
+      const editionCriterions: Criterions  = [];
+      const traverse = function(columns: Columns, editionCriterions: Criterions) {
         if(!Array.isArray(columns)) return;
 
         for(let column of columns) {
@@ -736,7 +374,7 @@ export default defineComponent({
           }
         }
       };
-      const openEditionDialog = function(context, props: any) {
+      const openEditionDialog = function(context: IObjectKeys, props: IObjectKeys) {
         const { row } = props;
 
         for(let i = 0; i < editionCriterions.length; i++) {
@@ -748,17 +386,19 @@ export default defineComponent({
           inline: false,
           criterions: editionCriterions,
           labelWidth: "80px",
-          onSubmit: edit,
-          closeOnClickModal: false,
-          closeOnPressEscape: false
+          onSubmit: edit
         };
 
         formProps = _.merge({}, formProps, beforeEdit(_.cloneDeep(formProps) || {}));
-        context.openDialog({ title: '编辑' }, Form, formProps);
+        context.openDialog({
+          title: '编辑',
+          closeOnClickModal: false,
+          closeOnPressEscape: false
+        }, Form, formProps);
         afterEdit();
       };
-      const openQueryDialog = function(context, props: any) {};
-      const operationMap = {
+      const openQueryDialog = function(context: IObjectKeys, props: IObjectKeys) {};
+      const operationMap: IObjectKeys= {
         query: {
           label: '查看',
           attrs: { type: 'text' },
@@ -772,7 +412,6 @@ export default defineComponent({
           emit: openEditionDialog,
         }
       };
-      const fn = () => {};
 
       traverse(columns, editionCriterions);
 
@@ -780,24 +419,23 @@ export default defineComponent({
       defaultOperations.split(",").forEach((key: string) => {
         key = trim(key);
         if(!operationMap[key]) return;
-        console.log(key, operationMap[key])
+
         mergedOperations.push({
           label: operationMap[key].label || '',
           attrs: operationMap[key].attrs,
           sort: index,
-          emit: typeof operationMap[key].emit === 'function' ? operationMap[key].emit : fn
+          emit: typeof operationMap[key].emit === 'function' ? operationMap[key].emit : () => {}
         });
         index++;
       });
 
       if(Array.isArray(operations) && operations.length > 0) {
-        
         operations.forEach(operation => {
           mergedOperations.push({
             label: operation.label,
-            attrs: operation.attrs || {},
+            attrs: operation.attrs || { type: 'primary' },
             sort: operation.sort, 
-            emit: typeof operation.emit === 'function' ? operation.emit : fn
+            emit: typeof operation.emit === 'function' ? operation.emit : () => {}
           });
         });
       }
@@ -806,8 +444,11 @@ export default defineComponent({
         return cur.sort && next.sort && cur.sort - next.sort;
       });
 
-      return (props: any) => mergedOperations.map(
-        ({label, attrs, emit}) => (<ElButton type={attrs.type} onClick={packageContext(emit, props)}>{label}</ElButton>)
+      return (props: IObjectKeys) => mergedOperations.map(
+        ({label, attrs, emit}) => (
+          // @ts-ignore
+          <ElButton type={attrs.type} onClick={packageContext(emit, props)}>{label}</ElButton>
+        )
       )
     };
 
@@ -836,7 +477,7 @@ export default defineComponent({
       <Suspense>
         {{
           default:() => {
-            const slot = {
+            const slot: IObjectKeys= {
               operation: (props: any) => operationsFn(props)
             };
 

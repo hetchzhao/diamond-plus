@@ -12,7 +12,6 @@
       />
       <dia-table
         height="500"
-        defaultOperation="add,delete,edit"
         :defaultTools="defaultTools"
         :data="data"
         :columns="columns"
@@ -31,9 +30,9 @@
             :key="`ROLE_${index}`"
           >{{role.roleName}}</el-tag>
         </template> -->
-        <template v-slot:status>
+        <!-- <template v-slot:status>
           <el-tag>临时启用</el-tag>
-        </template>
+        </template> -->
         <!-- <template v-slot:operation>
           <el-button type="text">重置密码</el-button>
           <el-button type="text">配置权范围</el-button>
@@ -493,6 +492,7 @@ export default defineComponent({
       attrs: {
         placeholder: '请选择所属机构',
         style: 'width:200px',
+        props: { checkStrictly: true },
         options: [{
           label: '启用',
           value: 'qiyong',
@@ -552,7 +552,20 @@ export default defineComponent({
       }
     },{
       label: '租户',
-      prop: 'tenantRemark'
+      children: [{
+        label: '子租户1',
+        prop: 'tenantRemark'
+      },{
+        label: '子租户2',
+        prop: 'tenantRemark1',
+        children:[{
+          label: '子租户3',
+          prop: 'tenantRemark3',
+        },{
+          label: '子租户4',
+          prop: 'tenantRemark4',
+        }]
+      }],
     },{
       label: '租户',
       prop: 'tenantCode',
@@ -562,7 +575,7 @@ export default defineComponent({
         attrs: {
           placeholder: '请选择租户',
           style: 'width:100%',
-          remoteOptionFn: getOptionsAPI({ code: 111 })
+          remoteOptionAPI: getOptionsAPI({ code: 111 })
         },
         rules: [{ required: true, message: '必填', trigger: 'blur' }]
       },
@@ -572,7 +585,7 @@ export default defineComponent({
         attrs: {
           placeholder: '请选择租户',
           style: 'width:100%',
-          remoteOptionFn: getOptionsAPI({ code: 111 })
+          remoteOptionAPI: getOptionsAPI({ code: 111 })
         },
         rules: [{ required: true, message: '必填', trigger: 'blur' }]
       }
@@ -646,7 +659,7 @@ export default defineComponent({
         attrs: {
           placeholder: '请选择机构',
           style: 'width:100%',
-          remoteOptionFn: getOptionsAPI({ code: 111 })
+          remoteOptionAPI: getOptionsAPI({ code: 111 })
         },
         rules: [{ required: true, message: '必填', trigger: 'blur' }]
       },
@@ -655,7 +668,7 @@ export default defineComponent({
         attrs: {
           placeholder: '请选择机构',
           style: 'width:100%',
-          remoteOptionFn: getOptionsAPI({ code: 111 })
+          remoteOptionAPI: getOptionsAPI({ code: 111 })
         },
         rules: [{ required: true, message: '必填', trigger: 'blur' }]
       }
@@ -665,11 +678,11 @@ export default defineComponent({
     },{
       label: '状态',
       prop: 'status',
-      // translate: {
-      //   remoteOptions: getStatusAPI({ code: 111 }),
-      //   key: 'key',
-      //   value: 'val'
-      // }
+      translate: {
+        API: getStatusAPI({ code: 111 }),
+        key: 'key',
+        value: 'val'
+      }
     },
     {
       label: '操作',
