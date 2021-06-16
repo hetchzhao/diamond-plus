@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "webpack serve --progress --hot --inline --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
-    "push": "npm build && npm publish",
+    "push": "npm run build && npm publish",
     "commit": "cz"
   },
   "author": "",
