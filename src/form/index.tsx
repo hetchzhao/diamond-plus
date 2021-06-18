@@ -13,7 +13,6 @@ import {
   ElForm,
   ElFormItem,
   ElDatePicker,
-  ElCascader,
   ElInput,
   ElButton,
   ElRow,
@@ -22,7 +21,6 @@ import {
 import 'element-plus/lib/theme-chalk/el-form.css';
 import 'element-plus/lib/theme-chalk/el-form-item.css';
 import 'element-plus/lib/theme-chalk/el-date-picker.css';
-import 'element-plus/lib/theme-chalk/el-cascader.css';
 import 'element-plus/lib/theme-chalk/el-input.css';
 import 'element-plus/lib/theme-chalk/el-button.css';
 import 'element-plus/lib/theme-chalk/el-row.css';
@@ -100,7 +98,6 @@ export default defineComponent({
     ElForm,
     ElFormItem,
     ElDatePicker,
-    // ElCascader,
     ElInput,
     ElButton,
     ElRow,
@@ -167,13 +164,12 @@ export default defineComponent({
 
       dynamicValidateForm = reactive(form);
     }
-    context.setField = (name: string, value: any) => {};
-    context.getField = (name: string) => {};
+    context.setField = (name: string, value: any) => { dynamicValidateForm[name] = value; };
+    context.getField = (name: string) => dynamicValidateForm[name];
     context.getFields = () => toRaw(dynamicValidateForm);
 
     const renderFormItem = (criterions: Criterions, columns: number) => {
       const count = columns > 1 ? columns : 1;
-      const formItems: Array<VNode> = [];
       const packageRules = (rules: Rules) => {
         if(!Array.isArray(rules)) return undefined;
 
@@ -197,6 +193,7 @@ export default defineComponent({
 
         return map;
       }
+      let formItems: Array<VNode> = [];
 
       let index = 0;
       while(index < criterions.length) {
@@ -265,7 +262,7 @@ export default defineComponent({
           Cols;
 
         if(Array.isArray(Row)) {
-          formItems.splice(formItems.length-1, 0, ...Row)
+          formItems = formItems.concat(Row)
         }else {
           formItems.push(Row);
         }
