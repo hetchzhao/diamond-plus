@@ -250,19 +250,19 @@ export default defineComponent({
       };
       const openAdditionDialog = function(context: IObjectKeys) {
         const Form = context.createForm();
-        let props = {
+        const props:IObjectKeys = {
           inline: false,
           criterions: additionCriterions,
           labelWidth: "80px",
           onSubmit: add,
         };
+        const newProps = beforeAdd(_.cloneDeep(props) || {});
 
-        props = _.merge({}, props, beforeAdd(_.cloneDeep(props) || {}));
         context.openDialog({
           title: '新增',
           closeOnClickModal: false,
           closeOnPressEscape: false
-        }, Form, props);
+        }, Form, newProps && typeof newProps == 'object' ? newProps : props);
         afterAdd();
       };
       const removeRows = function(context: IObjectKeys) {
@@ -374,27 +374,28 @@ export default defineComponent({
           }
         }
       };
-      const openEditionDialog = function(context: IObjectKeys, props: IObjectKeys) {
-        const { row } = props;
+      const openEditionDialog = function(context: IObjectKeys, tableProps: IObjectKeys) {
+        const { row } = tableProps;
 
         for(let i = 0; i < editionCriterions.length; i++) {
           editionCriterions[i].defaultModeValue = row[editionCriterions[i].prop] || "";
         }
 
         const Form = context.createForm();
-        let formProps = {
+        const props = {
           inline: false,
           criterions: editionCriterions,
           labelWidth: "80px",
           onSubmit: edit
         };
 
-        formProps = _.merge({}, formProps, beforeEdit(_.cloneDeep(formProps) || {}));
+        const newProps = beforeEdit(_.cloneDeep(props) || {});
+
         context.openDialog({
           title: '编辑',
           closeOnClickModal: false,
           closeOnPressEscape: false
-        }, Form, formProps);
+        }, Form, newProps && typeof newProps == 'object' ? newProps : props);
         afterEdit();
       };
       const openQueryDialog = function(context: IObjectKeys, props: IObjectKeys) {};
