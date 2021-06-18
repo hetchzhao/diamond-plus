@@ -23,8 +23,34 @@ export type Criterion = {
   attrs?: Attrs
 }
 export type Criterions = Array<Criterion>;
-export type AttributeOption = {
+export interface SelectOption {
   label: string,
-  value: string | number | object
+  value: string | number | object,
 };
-export type AttributeOptions = Array<AttributeOption>;
+export interface CascaderOption {
+  label?: string
+  value?: string | number,
+  children?: CascaderOption[]
+  disabled?: boolean
+  leaf?: boolean
+}
+enum ExpandTrigger {
+  CLICK = 'click',
+  HOVER = 'hover'
+}
+export interface CascaderProps {
+  expandTrigger?: ExpandTrigger
+  multiple?: boolean
+  checkStrictly?: boolean
+  emitPath?: boolean
+  lazy?: boolean
+  lazyLoad?: (node: any, resolve: any) => void
+  value?: string
+  label?: string
+  children?: string
+  disabled?: string | ((data: any, node: any) => boolean)
+  leaf?: string | ((data: any, node: any) => boolean)
+  hoverThreshold?: number
+}
+
+export type AttributeOptions = Array<SelectOption | CascaderOption>;

@@ -31,6 +31,7 @@ import 'element-plus/lib/theme-chalk/el-col.css';
 import Checkbox from './checkbox'
 import Radio from './radio'
 import Select from './select'
+import Cascader from './cascader'
 
 import { camelize } from '../utils'
 import {
@@ -46,10 +47,6 @@ const ElementMap: IObjectKeys = {
   input: {
     component: ElInput,
     defaultModeValue: '',
-  },
-  cascader: {
-    component: ElCascader,
-    defaultModeValue: [],
   },
   datepicker: {
     component: ElDatePicker,
@@ -73,6 +70,17 @@ const ElementMap: IObjectKeys = {
       </Suspense>),
     defaultModeValue: '',
   },
+  cascader: {
+    component: (props: any) => (
+      <Suspense>
+        {{
+          default: () => <Cascader {...props}/>,
+          fallback: () => "加载中"
+        }}
+      </Suspense>
+    ),
+    defaultModeValue: [],
+  },
   custom: {
     component: null,
     defaultModeValue: null,
@@ -92,7 +100,7 @@ export default defineComponent({
     ElForm,
     ElFormItem,
     ElDatePicker,
-    ElCascader,
+    // ElCascader,
     ElInput,
     ElButton,
     ElRow,

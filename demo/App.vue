@@ -58,7 +58,7 @@ import {
 } from 'element-plus'
 
 const getOptionsAPI = (params: any) => new Promise((resolve) => {
-  console.log('getOptions', params)
+
   setTimeout(() => {
     resolve(
       [{
@@ -493,23 +493,10 @@ export default defineComponent({
         placeholder: '请选择所属机构',
         style: 'width:200px',
         props: { checkStrictly: true },
-        options: [{
-          label: '启用',
-          value: 'qiyong',
-          children: [{
-          label: '临时启用',
-          value: 'linghsiqiyong'
-        }]
-        },{
-          label: '停用',
-          value: 'tingyong'
-        },{
-          label: '临时启用',
-          value: 'linghsiqiyong'
-        }],
+        remoteOptionAPI: getOptionsAPI({ code: 111 })
       },
-    }
-    ]);
+    }]);
+
     const submit = (context: any) => {
       const fields = context.getFields();
       console.log('context', context);
