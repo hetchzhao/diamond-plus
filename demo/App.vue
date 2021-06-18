@@ -5,7 +5,7 @@
         label-width="80px"
         defaultOperation="submit, reset"
         :criterions="criterions"
-        :inline="true"
+        :inline="false"
         :column="4"
         :operations="formOperations"
         @submit="submit"
@@ -15,6 +15,7 @@
         :defaultTools="defaultTools"
         :data="data"
         :columns="columns"
+        defaultOperations=""
         :operations="tableOperations"
         :beforeAdd="beforeAdd"
         :afterAdd="afterAdd"
@@ -23,6 +24,7 @@
         :afterRemove="afterRemove"
         :add="add"
         :edit="edit"
+        :beforeEdit="beforeEdit"
       >
         <!-- <template v-slot:roleList="slotProps">
           <el-tag
@@ -690,8 +692,8 @@ export default defineComponent({
       // }
     }];
     const beforeAdd = (props: any) => {
-      console.log('beforeAdd', props)
-      props.labelWidth = "0px";
+      console.log('props', props);
+      props.criterions = [];
       // return props;
     };
     const add = (context: any) => {
@@ -707,6 +709,10 @@ export default defineComponent({
     const afterAdd = (context: any) => {};
     const beforeRemove = (context: any) => {};
     const afterRemove = (context: any) => {};
+    const beforeEdit = (props: any) => {
+      props.criterions = [];
+      return props;
+    }
     const edit = (context: any) => {
       context.validate((isPress: boolean, params: Object) => {
         if(isPress) {
@@ -717,6 +723,7 @@ export default defineComponent({
         }
       });
     };
+
     const remove = (rows: Array<any>) => {
       console.log('rows', rows);
       // Business Logic
@@ -754,6 +761,7 @@ export default defineComponent({
       beforeRemove,
       remove,
       afterRemove,
+      beforeEdit,
       edit,
     };
   },
