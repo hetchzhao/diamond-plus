@@ -12,7 +12,7 @@ export type Criterion = {
   type: string,
   prop: string,
   label?: string,
-  defaultModeValue?: any,
+  modelValue?: any,
   size?: string,
   disabled?: boolean,
   showMessage?: boolean,

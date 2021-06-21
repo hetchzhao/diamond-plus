@@ -6,11 +6,16 @@ import {
 } from 'vue'
 import { ElRadio, ElRadioGroup } from 'element-plus'
 
+import {
+  AttributeOptions,
+  ComponentSize
+} from './token'
+
 export default defineComponent({
   name: 'dia-radio',
   props: {
     options: {
-      type: Array as PropType<ComponentOptions>,
+      type: Array as PropType<AttributeOptions>,
       default: []
     },
     modelValue: [String, Number, Boolean],

@@ -9,11 +9,16 @@ import { ElCheckboxGroup, ElCheckbox } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-checkbox-group.css';
 import 'element-plus/lib/theme-chalk/el-checkbox.css';
 
+import {
+  AttributeOptions,
+  ComponentSize
+} from './token'
+
 export default defineComponent({
   name: 'dia-checkbox',
   props: {
     options: {
-      type: Array as PropType<ComponentOptions>,
+      type: Array as PropType<AttributeOptions>,
       default: []
     },
     modelValue: [Object, Boolean, Array],
