@@ -31,7 +31,7 @@ import Radio from './radio'
 import Select from './select'
 import Cascader from './cascader'
 
-import { camelize } from '../utils'
+import camelize from 'camelize';
 import {
   ComponentSize,
   Criterions,
@@ -44,19 +44,19 @@ import { IObjectKeys } from '../utils'
 const ElementMap: IObjectKeys = {
   input: {
     component: ElInput,
-    defaultModeValue: '',
+    modelValue: '',
   },
   datepicker: {
     component: ElDatePicker,
-    defaultModeValue: '',
+    modelValue: '',
   },
   checkbox: {
     component: Checkbox,
-    defaultModeValue: [],
+    modelValue: [],
   },
   radio: {
     component: Radio,
-    defaultModeValue: [],
+    modelValue: [],
   },
   select: {
     component: (props: any) => (
@@ -66,7 +66,7 @@ const ElementMap: IObjectKeys = {
           fallback: () => "加载中"
         }}
       </Suspense>),
-    defaultModeValue: '',
+    modelValue: '',
   },
   cascader: {
     component: (props: any) => (
@@ -159,7 +159,7 @@ export default defineComponent({
         if(!criterion.prop || !ElementMap[criterion.type] || criterion.type === 'custom') continue;
         
         const element = ElementMap[criterion.type];
-        form[criterion.prop] = criterion.defaultModeValue ? criterion.defaultModeValue : element.defaultModeValue;
+        form[criterion.prop] = criterion.modelValue ? criterion.modelValue : element.modelValue;
       }
 
       dynamicValidateForm = reactive(form);
@@ -187,8 +187,13 @@ export default defineComponent({
         const map: IObjectKeys = {};
 
         Object.keys(events).forEach(key => {
-          const eventName = 'on' + camelize(key);
-          map[eventName] = packageContext(events[key]);
+          const identifier = camelize(key);
+          const firstChar = identifier[0] ? identifier[0].toUpperCase() : '';
+          
+          if(firstChar) {
+            const eventName = 'on' + firstChar + identifier.slice(1);
+            map[eventName] = packageContext(events[key]);
+          }
         });
 
         return map;
