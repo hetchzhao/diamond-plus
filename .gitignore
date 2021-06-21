@@ -27,3 +27,6 @@ yarn.lock
 *.njsproj
 *.sln
 *.sw*
+
+# Npm files
+.npmrc
