@@ -386,7 +386,7 @@ export default defineComponent({
           inline: false,
           criterions: editionCriterions,
           labelWidth: "80px",
-          onSubmit: packageContext(edit)
+          onSubmit: packageContext(edit, tableProps)
         };
 
         const newProps = beforeEdit(_.cloneDeep(props) || {});
