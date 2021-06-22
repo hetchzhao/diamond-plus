@@ -276,7 +276,7 @@ export default defineComponent({
         remove(selectedRows);
         afterRemove();
       };
-      const toolMap = {
+      const toolMap: IObjectKeys = {
         add: {
           label: '新增',
           attrs: { type: 'primary' },
