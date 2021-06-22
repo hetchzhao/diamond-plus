@@ -140,17 +140,23 @@ export default defineComponent({
   emits: ['submit'],
   setup(props, { slots, emit }) {
     const context:IObjectKeys = {
-      setField: (name:string, value: any) => {},
       getField: (name: string):any => {},
+      setField: (name:string, value: any) => {},
+      // getFieldAttributes: (fieldName: string) => {},
+      // setFieldAttributes: (fieldName: string, attributes: IObjectKeys) => {},
       getFields: ():any => {},
       clearValidate: () => {},
       validate: () => {},
       validateField: () => {},
-      resetFields: () => {}
+      resetFields: () => {},
     };
     const packageContext = (fn: any) => function() {
       fn(context, ...arguments);
     };
+
+    // let fieldAttributesMap: IObjectKeys = reactive({});
+    // context.getFieldAttributes = (fieldName: string) => {};
+    // context.setFieldAttributes = (fieldName: string, attributes: IObjectKeys) => {};
 
     let dynamicValidateForm: IObjectKeys = reactive({});
     const bindDynamicValidateForm = (criterions: Criterions) => {

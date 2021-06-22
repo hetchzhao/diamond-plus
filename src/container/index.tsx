@@ -1,12 +1,7 @@
 import {
   defineComponent,
-  onMounted,
   provide,
-  reactive,
-  readonly,
-  toRefs,
   ref,
-  watch
 } from 'vue'
 
 import { ElDialog } from 'element-plus'
@@ -86,7 +81,7 @@ export default defineComponent({
   render() {
     return (
       <div>
-        { this.$slots.default ? this.$slots.default() : null }
+        { this.$slots.default ? this.$slots.default() : '' }
         {/* @ts-ignore */}
         <ElDialog
           v-model={this.dialogProps.modelValue}

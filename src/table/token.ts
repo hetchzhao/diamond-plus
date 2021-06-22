@@ -14,8 +14,8 @@ export type Columns = Array<{
     API: Promise<Array<any>>,
   },
   formatter?: (row: Object, column: string, cellValue: any, index: number) => {},
-  addition?: Criterions,
-  edition?: Criterions
+  addition?: Criterion,
+  edition?: Criterion
 }>
 
 export type Operation = {

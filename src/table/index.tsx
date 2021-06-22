@@ -254,7 +254,7 @@ export default defineComponent({
           inline: false,
           criterions: additionCriterions,
           labelWidth: "80px",
-          onSubmit: add,
+          onSubmit: packageContext(add),
         };
         const newProps = beforeAdd(_.cloneDeep(props) || {});
 
@@ -378,7 +378,7 @@ export default defineComponent({
         const { row } = tableProps;
 
         for(let i = 0; i < editionCriterions.length; i++) {
-          editionCriterions[i].defaultModeValue = row[editionCriterions[i].prop] || "";
+          editionCriterions[i].modelValue = row[editionCriterions[i].prop] || "";
         }
 
         const Form = context.createForm();
@@ -386,7 +386,7 @@ export default defineComponent({
           inline: false,
           criterions: editionCriterions,
           labelWidth: "80px",
-          onSubmit: edit
+          onSubmit: packageContext(edit)
         };
 
         const newProps = beforeEdit(_.cloneDeep(props) || {});
