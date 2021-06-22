@@ -172,7 +172,7 @@ export default defineComponent({
       setSelectedRows: () => {}
     };
     const packageContext = (fn: any, props?: any) => function() {
-      fn(context, props, ...arguments);
+      fn(_.merge({},context,...arguments), props);
     };
 
     let selectedRows: Array<any> = [];
@@ -190,7 +190,6 @@ export default defineComponent({
     if(typeof closeDialog === 'function') {
       context.closeDialog = closeDialog;
     }
-
 
     const mergeTools = (defaultTools:string, tools: Tools, options: IObjectKeys) => {
       let mergedTools: Tools = [];

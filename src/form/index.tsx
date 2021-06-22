@@ -7,7 +7,8 @@ import {
   reactive,
   toRaw,
   VNode,
-  Suspense
+  Suspense,
+  toRefs
 } from 'vue'
 import {
   ElForm,
@@ -40,6 +41,7 @@ import {
   Events
 } from './token'
 import { IObjectKeys } from '../utils'
+import _ from 'lodash';
 
 const ElementMap: IObjectKeys = {
   input: {
@@ -142,8 +144,10 @@ export default defineComponent({
     const context:IObjectKeys = {
       getField: (name: string):any => {},
       setField: (name:string, value: any) => {},
-      // getFieldAttributes: (fieldName: string) => {},
-      // setFieldAttributes: (fieldName: string, attributes: IObjectKeys) => {},
+      // getFieldExtraAttrs: (fieldName: string) => {},
+      // setFieldExtraAttrs: (fieldName: string, attributes: IObjectKeys) => {},
+      getCriterionAttrs: (fieldName: string) => {},
+      setCriterionAttrs: (fieldName: string, attributes: IObjectKeys) => {},
       getFields: ():any => {},
       clearValidate: () => {},
       validate: () => {},
@@ -154,25 +158,36 @@ export default defineComponent({
       fn(context, ...arguments);
     };
 
-    // let fieldAttributesMap: IObjectKeys = reactive({});
-    // context.getFieldAttributes = (fieldName: string) => {};
-    // context.setFieldAttributes = (fieldName: string, attributes: IObjectKeys) => {};
-
+    let indexMap: IObjectKeys = {};
     let dynamicValidateForm: IObjectKeys = reactive({});
+    const { criterions } = toRefs(props)
     const bindDynamicValidateForm = (criterions: Criterions) => {
       const form: IObjectKeys = {};
-      for(let criterion of criterions) {
-        if(!criterion.prop || !ElementMap[criterion.type] || criterion.type === 'custom') continue;
+      const map: IObjectKeys = {};
+      for(let i = 0; i < criterions.length; i++) {
+        if(!criterions[i].prop || !ElementMap[criterions[i].type] || criterions[i].type === 'custom') continue;
         
-        const element = ElementMap[criterion.type];
-        form[criterion.prop] = criterion.modelValue ? criterion.modelValue : element.modelValue;
+        const element = ElementMap[criterions[i].type];
+        form[criterions[i].prop] = criterions[i].modelValue ? criterions[i].modelValue : element.modelValue;
+        map[criterions[i].prop] = i;
       }
 
+      indexMap = map;
       dynamicValidateForm = reactive(form);
     }
     context.setField = (name: string, value: any) => { dynamicValidateForm[name] = value; };
     context.getField = (name: string) => dynamicValidateForm[name];
     context.getFields = () => toRaw(dynamicValidateForm);
+    context.getCriterionAttrs = (fieldName: string) => {
+      const map = criterions.value;
+      const index = indexMap[fieldName]; 
+      const attrs = map[index] && map[index].attrs;
+
+    };
+    context.setCriterionAttrs = (fieldName: string, attributes: IObjectKeys) => {
+      const index = indexMap[fieldName];
+
+    };
 
     const renderFormItem = (criterions: Criterions, columns: number) => {
       const count = columns > 1 ? columns : 1;
@@ -229,6 +244,10 @@ export default defineComponent({
           } = criterion;
           const slotFn = slots[prop];
           const Element = ElementMap[type].component
+
+          if(attrs.modelValue) {
+            delete attrs.modelValue
+          } 
 
           Col = (
             <ElFormItem
@@ -355,10 +374,6 @@ export default defineComponent({
       );
     };
 
-
-    const { criterions } = props
-    bindDynamicValidateForm(criterions);
-
     const root: any = ref(null);
     onMounted(() => {
       if(!root || !root.value) return;
@@ -367,6 +382,8 @@ export default defineComponent({
       context.validateField = root.value.validateField;
       context.resetFields = root.value.resetFields;
     });
+
+    bindDynamicValidateForm(criterions.value);
 
     watch(() => props.criterions, (newVal) => {
       bindDynamicValidateForm(newVal);
