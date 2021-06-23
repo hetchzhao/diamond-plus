@@ -8,7 +8,8 @@ import {
   toRaw,
   VNode,
   Suspense,
-  toRefs
+  toRefs,
+  getCurrentInstance,
 } from 'vue'
 import {
   ElForm,
@@ -139,7 +140,7 @@ export default defineComponent({
       default:[]
     }
   },
-  emits: ['submit'],
+  emits: ['update:criterions', 'submit'],
   setup(props, { slots, emit }) {
     const context:IObjectKeys = {
       getField: (name: string):any => {},
@@ -168,7 +169,8 @@ export default defineComponent({
         if(!criterions[i].prop || !ElementMap[criterions[i].type] || criterions[i].type === 'custom') continue;
         
         const element = ElementMap[criterions[i].type];
-        form[criterions[i].prop] = criterions[i].modelValue ? criterions[i].modelValue : element.modelValue;
+        // form[criterions[i].prop] = criterions[i].modelValue ? criterions[i].modelValue : element.modelValue;
+        form[criterions[i].prop] = dynamicValidateForm[criterions[i].prop] || criterions[i].modelValue || element.modelValue;
         map[criterions[i].prop] = i;
       }
 
@@ -179,14 +181,23 @@ export default defineComponent({
     context.getField = (name: string) => dynamicValidateForm[name];
     context.getFields = () => toRaw(dynamicValidateForm);
     context.getCriterionAttrs = (fieldName: string) => {
-      const map = criterions.value;
+      const criterionVal = criterions.value;
       const index = indexMap[fieldName]; 
-      const attrs = map[index] && map[index].attrs;
+      const attrs = criterionVal[index] && criterionVal[index].attrs;
 
+      return attrs || {}
     };
     context.setCriterionAttrs = (fieldName: string, attributes: IObjectKeys) => {
       const index = indexMap[fieldName];
+      // const newCriterions = _.cloneDeep(criterions.value);
+      const newCriterions = criterions.value;
 
+      if(newCriterions[index]) {
+        // newCriterions[index].attrs = _.merge(newCriterions[index].attrs, attributes);
+        // emit('update:criterions', newCriterions);
+        newCriterions[index].attrs = attributes
+        emit('update:criterions', newCriterions);
+      }
     };
 
     const renderFormItem = (criterions: Criterions, columns: number) => {
@@ -238,7 +249,7 @@ export default defineComponent({
             size,
             disabled,
             rules,
-            attrs,
+            attrs = {},
             events,
             isShow = true
           } = criterion;
@@ -251,13 +262,13 @@ export default defineComponent({
 
           Col = (
             <ElFormItem
+              v-show={isShow}
               v-model={dynamicValidateForm[prop]}
               prop={prop}
               label={label}
               show-message={showMessage}
               inline-message={inlineMessage}
               rules={packageRules(rules as Rules)}
-              v-show={isShow}
             >
               {
                 Element === null ? 
@@ -343,7 +354,7 @@ export default defineComponent({
       if(Array.isArray(operations)) {
         operations.forEach(({ label, attrs, emit, sort }) => {
           if(!label) return;
-          if(typeof emit !== 'function') emit = () => {};
+          if(typeof emit !== 'function') emit = () => ({});
 
           mergedOperations.push({
             label: label,

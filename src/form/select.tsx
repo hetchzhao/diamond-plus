@@ -2,7 +2,6 @@ import {
   defineComponent,
   PropType,
   reactive,
-  ref
 } from 'vue'
 import { ElSelect, ElOption } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-select.css';
@@ -79,9 +78,7 @@ export default defineComponent({
       context.emit("update:modelValue", newVal);
     };
 
-    const value = ref('');
     return {
-      value,
       remoteOptions,
       handleChange,
       renderOptions
