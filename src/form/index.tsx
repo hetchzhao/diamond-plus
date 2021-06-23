@@ -142,11 +142,9 @@ export default defineComponent({
   },
   emits: ['update:criterions', 'submit'],
   setup(props, { slots, emit }) {
-    const context:IObjectKeys = {
+    const context: IObjectKeys = {
       getField: (name: string):any => {},
       setField: (name:string, value: any) => {},
-      // getFieldExtraAttrs: (fieldName: string) => {},
-      // setFieldExtraAttrs: (fieldName: string, attributes: IObjectKeys) => {},
       getCriterionAttrs: (fieldName: string) => {},
       setCriterionAttrs: (fieldName: string, attributes: IObjectKeys) => {},
       getFields: ():any => {},
@@ -163,19 +161,19 @@ export default defineComponent({
     let dynamicValidateForm: IObjectKeys = reactive({});
     const { criterions } = toRefs(props)
     const bindDynamicValidateForm = (criterions: Criterions) => {
-      const form: IObjectKeys = {};
       const map: IObjectKeys = {};
       for(let i = 0; i < criterions.length; i++) {
         if(!criterions[i].prop || !ElementMap[criterions[i].type] || criterions[i].type === 'custom') continue;
         
         const element = ElementMap[criterions[i].type];
         // form[criterions[i].prop] = criterions[i].modelValue ? criterions[i].modelValue : element.modelValue;
-        form[criterions[i].prop] = dynamicValidateForm[criterions[i].prop] || criterions[i].modelValue || element.modelValue;
+        // form[criterions[i].prop] = dynamicValidateForm[criterions[i].prop] || criterions[i].modelValue || element.modelValue;
+        dynamicValidateForm[criterions[i].prop] = dynamicValidateForm[criterions[i].prop] || criterions[i].modelValue || element.modelValue;
         map[criterions[i].prop] = i;
       }
 
       indexMap = map;
-      dynamicValidateForm = reactive(form);
+      // dynamicValidateForm = reactive(form);
     }
     context.setField = (name: string, value: any) => { dynamicValidateForm[name] = value; };
     context.getField = (name: string) => dynamicValidateForm[name];
@@ -195,7 +193,7 @@ export default defineComponent({
       if(newCriterions[index]) {
         // newCriterions[index].attrs = _.merge(newCriterions[index].attrs, attributes);
         // emit('update:criterions', newCriterions);
-        newCriterions[index].attrs = _.merge({}, newCriterions[index].attrs, attributes)
+        newCriterions[index].attrs = _.mergeWith({}, newCriterions[index].attrs, attributes);
         emit('update:criterions', newCriterions);
       }
     };
@@ -408,6 +406,7 @@ export default defineComponent({
     }
   },
   render() {
+
     return (
       <ElForm
         ref={(ref: any) => this.root = ref}

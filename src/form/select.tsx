@@ -3,9 +3,10 @@ import {
   PropType,
   reactive,
 } from 'vue'
-import { ElSelect, ElOption } from 'element-plus'
+import { ElSelect, ElOption, ElTree } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-select.css';
 import 'element-plus/lib/theme-chalk/el-option.css';
+import 'element-plus/lib/theme-chalk/el-tree.css';
 
 import {
   AttributeOptions,
@@ -16,7 +17,8 @@ export default defineComponent({
   name: 'dia-select',
   components: {
     ElSelect,
-    ElOption
+    ElOption,
+    ElTree
   },
   props: {
     options: {
@@ -116,6 +118,46 @@ export default defineComponent({
         onChange={this.handleChange}
       >
         { this.renderOptions(this.options, this.remoteOptions) }
+        {/* <ElOption value="">
+          <ElTree 
+            highlightCurrent={true}
+            data={[{
+              id: 1,
+              label: '一级 1',
+              children: [{
+                id: 4,
+                label: '二级 1-1',
+                children: [{
+                  id: 9,
+                  label: '三级 1-1-1'
+                }, {
+                  id: 10,
+                  label: '三级 1-1-2'
+                }]
+              }]
+            }, {
+              id: 2,
+              label: '一级 2',
+              children: [{
+                id: 5,
+                label: '二级 2-1'
+              }, {
+                id: 6,
+                label: '二级 2-2'
+              }]
+            }, {
+              id: 3,
+              label: '一级 3',
+              children: [{
+                id: 7,
+                label: '二级 3-1'
+              }, {
+                id: 8,
+                label: '二级 3-2'
+              }]
+            }]}
+          />
+        </ElOption> */}
       </ElSelect>
     );
   }

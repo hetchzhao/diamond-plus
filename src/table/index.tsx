@@ -388,7 +388,7 @@ export default defineComponent({
           onSubmit: packageContext(edit, tableProps)
         };
 
-        const newProps = beforeEdit(_.cloneDeep(props) || {});
+        const newProps = beforeEdit(_.cloneDeep(props) || {}, tableProps);
 
         context.openDialog({
           title: '编辑',
