@@ -195,7 +195,7 @@ export default defineComponent({
       if(newCriterions[index]) {
         // newCriterions[index].attrs = _.merge(newCriterions[index].attrs, attributes);
         // emit('update:criterions', newCriterions);
-        newCriterions[index].attrs = attributes
+        newCriterions[index].attrs = _.merge({}, newCriterions[index].attrs, attributes)
         emit('update:criterions', newCriterions);
       }
     };
