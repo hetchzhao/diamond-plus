@@ -49,7 +49,7 @@ const ElementMap: IObjectKeys = {
     component: ElInput,
     modelValue: '',
   },
-  datepicker: {
+  datePicker: {
     component: ElDatePicker,
     modelValue: '',
   },
