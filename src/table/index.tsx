@@ -307,13 +307,14 @@ export default defineComponent({
         index++;
       });
 
+
       if(Array.isArray(tools) && tools.length > 0) {
         tools.forEach(tool => {
           mergedTools.push({
             label: tool.label,
             attrs: tool.attrs || {},
             sort: tool.sort, 
-            emit: packageContext(emit)
+            emit: packageContext(tool.emit)
           });
         });
       }
