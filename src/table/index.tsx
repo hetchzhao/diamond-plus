@@ -226,7 +226,7 @@ export default defineComponent({
             type: 'input',
             attrs: {},
             rules: [],
-            events: [],
+            events: {},
             hidden: false,
           };
 
@@ -353,7 +353,7 @@ export default defineComponent({
             type: 'input',
             attrs: {},
             rules: [],
-            events: [],
+            events: {},
             hidden: false,
           };
 
@@ -374,7 +374,7 @@ export default defineComponent({
           }
         }
       };
-      const openEditionDialog = function(context: IObjectKeys, tableProps: IObjectKeys) {
+      const openEditionDialog = async function(context: IObjectKeys, tableProps: IObjectKeys) {
         const { row } = tableProps;
 
         for(let i = 0; i < editionCriterions.length; i++) {
@@ -389,7 +389,7 @@ export default defineComponent({
           onSubmit: packageContext(edit, tableProps)
         };
 
-        const newProps = beforeEdit(_.cloneDeep(props) || {}, tableProps);
+        const newProps = await beforeEdit(_.cloneDeep(props) || {}, tableProps);
 
         context.openDialog({
           title: '编辑',

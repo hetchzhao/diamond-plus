@@ -10,6 +10,7 @@ import {
   Suspense,
   toRefs,
   getCurrentInstance,
+  nextTick,
 } from 'vue'
 import {
   ElForm,
@@ -158,7 +159,8 @@ export default defineComponent({
     };
 
     let indexMap: IObjectKeys = {};
-    let dynamicValidateForm: IObjectKeys = reactive({});
+    const dynamicValidateForm: IObjectKeys = reactive({});
+    const criterionAttrsMap: IObjectKeys = ref({});
     const { criterions } = toRefs(props)
     const bindDynamicValidateForm = (criterions: Criterions) => {
       const map: IObjectKeys = {};
@@ -182,23 +184,27 @@ export default defineComponent({
       const criterionVal = criterions.value;
       const index = indexMap[fieldName]; 
       const attrs = criterionVal[index] && criterionVal[index].attrs;
+      const criterionAttrsMapVal = criterionAttrsMap.value;
 
-      return attrs || {}
+      return Object.assign(attrs, criterionAttrsMapVal[fieldName]);
     };
     context.setCriterionAttrs = (fieldName: string, attributes: IObjectKeys) => {
-      const index = indexMap[fieldName];
+      // const index = indexMap[fieldName];
       // const newCriterions = _.cloneDeep(criterions.value);
-      const newCriterions = criterions.value;
+      // const newCriterions = criterions.value;
 
-      if(newCriterions[index]) {
-        // newCriterions[index].attrs = _.merge(newCriterions[index].attrs, attributes);
-        // emit('update:criterions', newCriterions);
-        newCriterions[index].attrs = Object.assign(newCriterions[index].attrs, attributes);
-        emit('update:criterions', newCriterions);
-      }
+      // if(newCriterions[index]) {
+      //   // newCriterions[index].attrs = _.merge(newCriterions[index].attrs, attributes);
+      //   // emit('update:criterions', newCriterions);
+      //   newCriterions[index].attrs = Object.assign(newCriterions[index].attrs, attributes);
+      //   emit('update:criterions', newCriterions);
+      // }
+      const criterionAttrsMapVal = criterionAttrsMap.value;
+      criterionAttrsMapVal[fieldName] = attributes;
+      criterionAttrsMap.value = criterionAttrsMapVal;
     };
 
-    const renderFormItem = (criterions: Criterions, columns: number) => {
+    const renderFormItem = (criterions: Criterions, columns: number, criterionAttrsMap: IObjectKeys) => {
       const count = columns > 1 ? columns : 1;
       const packageRules = (rules: Rules) => {
         if(!Array.isArray(rules)) return undefined;
@@ -258,6 +264,8 @@ export default defineComponent({
             delete attrs.modelValue
           } 
 
+          const mergedAttrs = Object.assign({}, attrs, criterionAttrsMap[prop]);
+
           Col = (
             <ElFormItem
               v-show={isShow}
@@ -275,7 +283,7 @@ export default defineComponent({
                     v-model={dynamicValidateForm[prop]}
                     size={size}
                     disabled={disabled}
-                    {...attrs}
+                    {...mergedAttrs}
                     {...packageEvents(events as Events)}
                   />
               }
@@ -401,6 +409,7 @@ export default defineComponent({
     return {
       root,
       dynamicValidateForm,
+      criterionAttrsMap,
       renderFormItem,
       renderFormOperations
     }
@@ -422,7 +431,7 @@ export default defineComponent({
         validate-on-rule-change={this.validateOnRuleChange}
         rules={this.rules}
       >
-        { this.renderFormItem(this.criterions, this.column) }
+        { this.renderFormItem(this.criterions, this.column, this.criterionAttrsMap) }
         { this.renderFormOperations(this.defaultOperation, this.operations) }
       </ElForm>
     );
