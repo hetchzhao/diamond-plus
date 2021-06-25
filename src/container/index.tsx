@@ -38,7 +38,7 @@ export default defineComponent({
       beforeClose: () => {},
     };
     const dialogProps = ref(_.merge({}, defaultDialogProps));
-    const dialogComponent = ref(null);
+    const dialogComponent = ref({});
     const dialogComponentProps = ref({});
     const openDialog = (props: any, component: any, componentProps: any) => {
       const newProps = _.merge({}, props);
@@ -47,32 +47,32 @@ export default defineComponent({
       dialogComponent.value = component;
       dialogComponentProps.value = componentProps;
       dialogProps.value = newProps;
+
+      console.log('openDialog', component)
     }
     const closeDialog = () => {
       const newProps = _.merge({}, defaultDialogProps);
       newProps.modelValue = false;
 
-      dialogComponent.value = null;
-      dialogComponentProps.value = {};
+      dialogComponent.value = <div/>;
+      dialogComponentProps.value = '';
       dialogProps.value = newProps;
     }
-    const renderDialogComponent = () => {
-      if(!dialogComponent) return null;
-      const Component = dialogComponent.value;
-      const props = dialogComponentProps.value;
+    const renderDialogComponent = (Component: any, props: any) => {
 
-      // TODO: 保证ts校验通过
-      return <Component {...props}/>;
+      return (<Component {...props}/>);
     }
 
     provide('openDialog', openDialog);
     provide('closeDialog', closeDialog);
 
     const handleDialogClosed = () => {
-      dialogComponent.value = null;
-      dialogComponentProps.value = {};
+      dialogComponent.value = <div />;
+      dialogComponentProps.value = '';
     }
     return {
+      dialogComponent,
+      dialogComponentProps,
       dialogProps,
       renderDialogComponent,
       handleDialogClosed
@@ -103,7 +103,7 @@ export default defineComponent({
           // @ts-ignore
           onClosed={this.handleDialogClosed}
         >
-          { this.renderDialogComponent() }
+          { this.renderDialogComponent(this.dialogComponent, this.dialogComponentProps) }
         </ElDialog>
       </div>
     )
