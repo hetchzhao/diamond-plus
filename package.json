@@ -1,6 +1,6 @@
 {
   "name": "diamond-plus",
-  "version": "0.6.1",
+  "version": "0.6.26",
   "description": "基于Element Plus的低代码前端框架",
   "main": "build/js/lib.js",
   "directories": {},
@@ -18,8 +18,7 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "vue": "^3.0.11",
-    "element-plus": "^1.0.2-beta.44"
+    "vue": "^3.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -35,7 +34,7 @@
     "commitizen": "^4.2.4",
     "css-loader": "^5.2.6",
     "cz-conventional-changelog": "^3.3.0",
-    "element-plus": "^1.0.2-beta.44",
+    "element-plus": "1.0.2-beta.52",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^27.0.4",
