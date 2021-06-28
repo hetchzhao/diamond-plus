@@ -2,12 +2,16 @@ import {
   defineComponent,
   provide,
   ref,
+  reactive,
+  h
 } from 'vue'
 
 import { ElDialog } from 'element-plus'
 import 'element-plus/lib/theme-chalk/el-dialog.css';
 
 import _ from 'lodash';
+
+import { IObjectKeys } from '../utils';
 
 export default defineComponent({
   name: 'dia-container',
@@ -19,8 +23,8 @@ export default defineComponent({
     /**
      * Dialog
      */
-    const defaultDialogProps = {
-      modelValue: false,
+    const dialogVisible = ref(false);
+    const dialogProps: IObjectKeys = reactive({
       title: '',
       width: '50%',
       top: '15vh',
@@ -34,48 +38,36 @@ export default defineComponent({
       closeOnPressEscape: true,
       showClose: true,
       center: false,
-      destroyOnClose: false,
-      beforeClose: () => {},
-    };
-    const dialogProps = ref(_.merge({}, defaultDialogProps));
-    const dialogComponent = ref({});
-    const dialogComponentProps = ref({});
+      destroyOnClose: true
+    });
+    let dialogChildComponent = {};
+    let dialogChildComponentProps = {};
     const openDialog = (props: any, component: any, componentProps: any) => {
-      const newProps = _.merge({}, props);
-      newProps.modelValue = true;
+      dialogVisible.value = true;
 
-      dialogComponent.value = component;
-      dialogComponentProps.value = componentProps;
-      dialogProps.value = newProps;
+      Object.keys(props).forEach(key => {
+        if(typeof props[key] !== 'undefined') {
+          dialogProps[key] = props[key];
+        }
+      });
 
-      console.log('openDialog', component)
+      dialogChildComponent = component;
+      dialogChildComponentProps = componentProps;
     }
     const closeDialog = () => {
-      const newProps = _.merge({}, defaultDialogProps);
-      newProps.modelValue = false;
-
-      dialogComponent.value = <div/>;
-      dialogComponentProps.value = '';
-      dialogProps.value = newProps;
+      dialogVisible.value = false;
     }
-    const renderDialogComponent = (Component: any, props: any) => {
-
-      return (<Component {...props}/>);
+    const renderDialogComponent = () => {
+      return h(dialogChildComponent, dialogChildComponentProps, "");
     }
 
     provide('openDialog', openDialog);
     provide('closeDialog', closeDialog);
 
-    const handleDialogClosed = () => {
-      dialogComponent.value = <div />;
-      dialogComponentProps.value = '';
-    }
     return {
-      dialogComponent,
-      dialogComponentProps,
+      dialogVisible,
       dialogProps,
       renderDialogComponent,
-      handleDialogClosed
     }
   },
   render() {
@@ -84,26 +76,10 @@ export default defineComponent({
         { this.$slots.default ? this.$slots.default() : '' }
         {/* @ts-ignore */}
         <ElDialog
-          v-model={this.dialogProps.modelValue}
-          title={this.dialogProps.title}
-          width={this.dialogProps.width}
-          top={this.dialogProps.top}
-          fullscreen={this.dialogProps.fullscreen}
-          modal={this.dialogProps.modal}
-          appendToBody={this.dialogProps.appendToBody}
-          lockScroll={this.dialogProps.lockScroll}
-          openDelay={this.dialogProps.openDelay}
-          closeDelay={this.dialogProps.closeDelay}
-          closeOnClickModal={this.dialogProps.closeOnClickModal}
-          closeOnPressEscape={this.dialogProps.closeOnPressEscape}
-          showClose={this.dialogProps.showClose}
-          center={this.dialogProps.center}
-          destroyOnClose={this.dialogProps.destroyOnClose}
-          beforeClose={this.dialogProps.beforeClose}
-          // @ts-ignore
-          onClosed={this.handleDialogClosed}
+          v-model={this.dialogVisible}
+          {...this.dialogProps}
         >
-          { this.renderDialogComponent(this.dialogComponent, this.dialogComponentProps) }
+          { this.renderDialogComponent() }
         </ElDialog>
       </div>
     )
